@@ -18,12 +18,12 @@ export function ContactSection() {
           <div className="flex items-center gap-2">
             <span className="text-gray-400">{t("phone")}:</span>
             <a href="tel:+82-3255-4653" className="text-white hover:text-[#1a237e] transition-colors">
-              +82 3255-4653
+              +82 010-3255-4653
             </a>
           </div>
           <div className="flex items-center gap-2">
             <span className="text-gray-400">{t("address")}:</span>
-            <span className="text-white">123 Innovation Street, Tech City, TC 12345</span>
+            <span className="text-white">전북특별자치도 전주시 완산구 중산중앙로 21, 3층 302-337호(중화산동2가)</span>
           </div>
         </div>
       </div>

@@ -16,21 +16,18 @@ export function Footer() {
 
         <div className="mb-8 text-sm text-gray-300 leading-relaxed space-y-2">
           <div className="flex flex-wrap items-center gap-1">
-            <span>대표자: 김대표</span>
+            <span>대표자: 안재민</span>
             <span className="mx-2">|</span>
-            <span>사업자등록번호: 123-45-67890</span>
+            <span>사업자등록번호: 333-10-02879</span>
           </div>
           <div className="flex flex-wrap items-center gap-1">
-            <span>HQ 오피스: 서울 강남구 테헤란로 123, 10층</span>
-            <span className="mx-2">|</span>
-            <span>기업부설연구소: 서울 금천구 디지털로10길 37, 3105</span>
+            <span>HQ 오피스: 전북특별자치도 전주시 완산구 중산중앙로 21, 3층 302-337호(중화산동2가)</span>
           </div>
           <div className="flex flex-wrap items-center gap-1">
-            <span>고객상담: 1555-2440 (평일 10시~18시)</span>
+            <span>고객상담: 010-3255-4653 (평일 10시~18시)</span>
             <span className="mx-2">|</span>
             <span>이메일: contact@pakids.team</span>
           </div>
-          <div>산업디자인전문회사 신고 제 18330호</div>
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center">

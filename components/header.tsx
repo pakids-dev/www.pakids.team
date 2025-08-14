@@ -12,30 +12,19 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12">
-      <div className="flex items-center">
-        <Link href="/">
-          <div
-            className="cursor-pointer relative"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <Image
-              src="/pakids-symbol-logo.png"
-              alt="Pakids"
-              width={150}
-              height={100}
-              className={`transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`}
-            />
-            <Image
-              src="/pakids-text-logo.png"
-              alt="Pakids"
-              width={150}
-              height={100}
-              className={`absolute top-0 left-0 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0"}`}
-            />
-          </div>
-        </Link>
+  <div className="flex items-center">
+    <Link href="/">
+      <div className="cursor-pointer">
+        <Image
+          src="/pakids-symbol-logo.png"
+          alt="Pakids"
+          width={150}
+          height={100}
+          className="transition-transform duration-300 hover:scale-125"
+        />
       </div>
+    </Link>
+  </div>
 
       <nav className="hidden md:flex items-center space-x-8"></nav>
 
@@ -47,7 +36,7 @@ export function Header() {
               language === "ko" ? "bg-[#1a237e] text-white" : "text-gray-400 hover:text-white"
             }`}
           >
-            KO
+            KR
           </button>
           <button
             onClick={() => setLanguage("en")}

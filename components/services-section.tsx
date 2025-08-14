@@ -60,7 +60,7 @@ export function ServicesSection() {
               {t("product_design")}
             </h3>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-              {t("product_design_description")}
+              
             </p>
           </div>
           <div
@@ -102,7 +102,7 @@ export function ServicesSection() {
               {t("ux_ui_design")}
             </h3>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-              {t("ux_ui_design_description")}
+              
             </p>
           </div>
           <div
@@ -145,7 +145,7 @@ export function ServicesSection() {
               {t("mobile_applications")}
             </h3>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-              {t("mobile_applications_description")}
+              
             </p>
           </div>
           <div
@@ -187,7 +187,7 @@ export function ServicesSection() {
               {t("development")}
             </h3>
             <p className="text-gray-400 text-sm md:text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
-              {t("development_description")}
+              
             </p>
           </div>
           <div

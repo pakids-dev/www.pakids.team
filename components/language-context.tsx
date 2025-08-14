@@ -17,9 +17,9 @@ const translations = {
 
     // Hero Section
     ux_ui_dev: "UX/UI & DEV",
-    creative_agency: "Creative Agency",
+    creative_agency: "Your Vision, Our Technology",
     hero_description:
-      "Pakids crafts exceptional digital experiences that transform brands and captivate audiences. We're the strategic partner that brings your vision to life.",
+      "파키즈는 혁신적인 웹과 모바일 솔루션으로 브랜드를 성장시키고 고객을 사로잡는 디지털 경험을 제공합니다. 당신의 비전을 현실로 만드는 전략적 파트너입니다.",
     start_project: "Start a project",
 
     // Services Section
@@ -61,9 +61,9 @@ const translations = {
 
     // Hero Section
     ux_ui_dev: "UX/UI & DEV",
-    creative_agency: "Creative Agency",
+    creative_agency: "Your Vision, Our Technology",
     hero_description:
-      "Pakids crafts exceptional digital experiences that transform brands and captivate audiences. We're the strategic partner that brings your vision to life.",
+      "Pakids crafts innovative web and mobile solutions that transform brands and captivate audiences. We're the strategic partner that brings your digital vision to life.",
     start_project: "Start a project",
 
     // Services Section
