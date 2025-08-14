@@ -161,7 +161,7 @@ export function ServicesSection() {
               loop 
               playsInline
             >
-              <source src="/mobileB.mp4" type="video/mp4" />
+              <source src="/mobileb.mp4" type="video/mp4" />
             </video>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           </div>
