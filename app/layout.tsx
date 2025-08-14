@@ -8,8 +8,48 @@ import { LanguageProvider } from "@/components/language-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Pakids - Creative Agency",
-  description: "Pakids crafts exceptional digital experiences that transform brands and captivate audiences.",
+  title: "Pakids - 크리에이티브 에이전시 | Creative Agency",
+  description: "Pakids는 브랜드를 변화시키고 관객을 사로잡는 탁월한 디지털 경험을 만듭니다. Pakids crafts exceptional digital experiences that transform brands and captivate audiences.",
+  keywords: "크리에이티브 에이전시, 디지털 마케팅, 웹 개발, 모바일 앱, UX/UI 디자인, creative agency, digital marketing, web development, mobile app, UX/UI design",
+  authors: [{ name: "Pakids" }],
+  creator: "Pakids",
+  publisher: "Pakids",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://www.pakids.team"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "ko-KR": "/ko",
+      "en-US": "/en",
+    },
+  },
+  openGraph: {
+    title: "Pakids - 파키즈 | Creative Agency",
+    description: "Pakids, Your Vision, Our Technology",
+    url: "https://www.pakids.team",
+    siteName: "Pakids",
+    images: [
+      {
+        url: "https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Pakids - 파키즈 | Creative Agency",
+      },
+    ],
+    locale: "ko_KR",
+    alternateLocale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pakids - 파키즈 | Creative Agency",
+    description: "Pakids, Your Vision, Our Technology",
+    images: ["https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg"],
+  },
 }
 
 export default function RootLayout({
