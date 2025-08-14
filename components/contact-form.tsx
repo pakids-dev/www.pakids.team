@@ -12,7 +12,7 @@ export function ContactForm() {
     name: "",
     email: "",
     phone: "",
-    company: "",
+    service: "",
     privacyPolicy: false,
     termsConditions: false,
   })
@@ -64,12 +64,6 @@ export function ContactForm() {
 
   const t = translations[language]
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission
-    console.log("Form submitted:", formData)
-  }
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target
     setFormData((prev) => ({
@@ -82,7 +76,11 @@ export function ContactForm() {
     <div className="bg-gradient-to-br from-black/95 via-black/85 to-[#0a0f0a]/90 backdrop-blur-xl rounded-2xl p-8 border border-[#1a237e]/20 shadow-2xl">
       <h2 className="text-2xl font-semibold mb-8">{t.title}</h2>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form 
+        action="https://formspree.io/f/mnnzrjpz"
+        method="POST"
+        className="space-y-6"
+      >
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-2">
             {t.fields.name} <span className="text-[#1a237e]">*</span>
@@ -133,8 +131,8 @@ export function ContactForm() {
           <label className="block text-sm font-medium text-gray-300 mb-2">{t.fields.service}</label>
           <input
             type="text"
-            name="company"
-            value={formData.company}
+            name="service"
+            value={formData.service}
             onChange={handleChange}
             className="w-full bg-gradient-to-r from-black/90 via-[#0a0f0a]/70 to-black/90 border border-[#1a237e]/30 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#1a237e] focus:shadow-[0_0_25px_rgba(26,35,126,0.2)] transition-all duration-300"
             placeholder={t.placeholders.service}
@@ -148,6 +146,7 @@ export function ContactForm() {
               name="privacyPolicy"
               checked={formData.privacyPolicy}
               onChange={handleChange}
+              required
               className="mt-1 w-4 h-4 text-[#1a237e] bg-black border-[#1a237e]/50 rounded focus:ring-[#1a237e] focus:ring-2"
             />
             <span className="text-sm text-gray-300">{t.privacy}</span>
@@ -166,13 +165,13 @@ export function ContactForm() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
           <div>
             <p className="text-sm text-gray-400 mb-2">{t.footer.startProject}</p>
-            <a href="mailto:hello@pakids.com" className="text-white hover:text-[#1a237e] transition-colors">
+            <a href="mailto:contact@pakids.team" className="text-white hover:text-[#1a237e] transition-colors">
               contact@pakids.team
             </a>
           </div>
           <div>
             <p className="text-sm text-gray-400 mb-2">{t.footer.partnerWithUs}</p>
-            <a href="mailto:partner@pakids.com" className="text-white hover:text-[#1a237e] transition-colors">
+            <a href="mailto:contact@pakids.team" className="text-white hover:text-[#1a237e] transition-colors">
               contact@pakids.team
             </a>
           </div>
