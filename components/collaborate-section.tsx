@@ -52,7 +52,7 @@ export function CollaborateSection() {
           <div className="text-center">
             <h3 className="text-lg text-gray-400 mb-4">{t("work_with_us")}</h3>
             <a
-              href="mailto:hr@pakids.com"
+              href="mailto:contact@pakids.com"
               className="text-xl md:text-2xl text-white hover:text-[#1a237e] transition-colors duration-300"
             >
               contact@pakids.team
