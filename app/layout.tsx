@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Pakids - 크리에이티브 에이전시 | Creative Agency",
-  description: "Pakids는 브랜드를 변화시키고 관객을 사로잡는 탁월한 디지털 경험을 만듭니다. Pakids crafts exceptional digital experiences that transform brands and captivate audiences.",
-  keywords: "크리에이티브 에이전시, 디지털 마케팅, 웹 개발, 모바일 앱, UX/UI 디자인, creative agency, digital marketing, web development, mobile app, UX/UI design",
+  description: "Pakids: Your Vision, Our Technology",
+  keywords: "크리에이티브 에이전시, 디지털 마케팅, 웹 개발, 모바일 앱 개발, SI, 스타트업, 창업, UX/UI 디자인, 브랜딩, 디지털 전환, 웹사이트 제작, 앱 개발, 프로덕트 디자인, 사용자 경험, 인터페이스 디자인, 반응형 웹, 프론트엔드 개발, 백엔드 개발, 풀스택 개발, React, Next.js, TypeScript, Node.js, AWS, 클라우드 서비스, SEO 최적화, 성능 최적화, 데이터베이스 설계, API 개발, 마이크로서비스, DevOps, CI/CD, creative agency, digital marketing, web development, mobile app development, system integration, startup, entrepreneurship, UX/UI design, branding, digital transformation, website creation, app development, product design, user experience, interface design, responsive web, frontend development, backend development, fullstack development, cloud services, SEO optimization, performance optimization, database design, API development, microservices",
   authors: [{ name: "Pakids" }],
   creator: "Pakids",
   publisher: "Pakids",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Pakids - 파키즈 | Creative Agency",
-    description: "Pakids, Your Vision, Our Technology",
+    description: "Pakids: Your Vision, Our Technology",
     url: "https://www.pakids.team",
     siteName: "Pakids",
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Pakids - 파키즈 | Creative Agency",
-    description: "Pakids, Your Vision, Our Technology",
+    description: "Pakids: Your Vision, Our Technology",
     images: ["https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg"],
   },
 }
