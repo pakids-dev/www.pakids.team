@@ -27,6 +27,24 @@ export const metadata: Metadata = {
       "en-US": "/en",
     },
   },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' }
+    ],
+    apple: [
+      { url: '/apple-icon-57x57.png', sizes: '57x57', type: 'image/png' }
+    ],
+    other: [
+      { rel: 'icon', url: '/android-icon-36x36.png', sizes: '36x36', type: 'image/png' },
+      { rel: 'msapplication-TileImage', url: '/ms-icon-144x144.png' },
+      { rel: 'msapplication-square70x70logo', url: '/ms-icon-70x70.png' },
+      { rel: 'msapplication-square150x150logo', url: '/ms-icon-150x150.png' },
+      { rel: 'msapplication-wide310x150logo', url: '/ms-icon-310x310.png' }
+    ]
+  },
   openGraph: {
     title: "Pakids - 파키즈 | Creative Agency",
     description: "Pakids: Your Vision, Our Technology",
@@ -51,7 +69,6 @@ export const metadata: Metadata = {
     images: ["https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg"],
   },
 }
-
 export default function RootLayout({
   children,
 }: {
