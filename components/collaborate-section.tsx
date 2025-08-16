@@ -46,9 +46,7 @@ export function CollaborateSection() {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row justify-center items-center gap-16 md:gap-32">
-          <div className="text-center"></div>
-
+        <div className="flex justify-center items-center">
           <div className="text-center">
             <h3 className="text-lg text-gray-400 mb-4">{t("work_with_us")}</h3>
             <a
