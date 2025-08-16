@@ -299,7 +299,7 @@ export function HeroSection() {
         </h1>
 
 
-        <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed whitespace-pre-line">
           {t("hero_description")}
         </p>
 

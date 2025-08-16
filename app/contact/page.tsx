@@ -20,8 +20,8 @@ export default function ContactPage() {
         happen: ["h", "a", "p", "p", "e", "n"],
       },
       contact: {
-        preferCall: "전화를 원하시나요?",
-        dropLine: "이메일로 연락주세요"
+        preferCall: "전화 상담이 필요하신가요?",
+        dropLine: "이메일 문의가 필요하신가요?"
       },
       footer: {
         startProject: "프로젝트 시작",

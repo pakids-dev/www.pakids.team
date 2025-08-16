@@ -18,8 +18,7 @@ const translations = {
     // Hero Section
     ux_ui_dev: "UX/UI & DEV",
     creative_agency: "Your Vision, Our Technology",
-    hero_description:
-      "파키즈는 혁신적인 웹과 모바일 솔루션으로 브랜드를 성장시키고 고객을 사로잡는 디지털 경험을 제공합니다. 당신의 비전을 현실로 만드는 전략적 파트너입니다.",
+    hero_description:"파키즈는 혁신적인 솔루션으로 아이디어를 현실로 이끄는 당신의 든든한 파트너가 되겠습니다.\n작은 아이디어부터 큰 꿈까지, 디지털 세상에서 당신만의 특별한 이야기를 만들어가겠습니다.",
     start_project: "Start a project",
 
     // Services Section
