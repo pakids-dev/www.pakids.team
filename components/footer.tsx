@@ -24,7 +24,7 @@ export function Footer() {
             <span>HQ 오피스: 전북특별자치도 전주시 완산구 중산중앙로 21, 3층 302-337호(중화산동2가)</span>
           </div>
           <div className="flex flex-wrap items-center gap-1">
-            <span>고객상담: 010-3255-4653 (평일 10시~18시)</span>
+            <span>대표번호: 010-3255-4653</span>
             <span className="mx-2">|</span>
             <span>이메일: contact@pakids.team</span>
           </div>
