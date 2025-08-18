@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   authors: [{ name: "Pakids" }],
   creator: "Pakids",
   publisher: "Pakids",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   formatDetection: {
     email: false,
     address: false,
