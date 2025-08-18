@@ -1,7 +1,7 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://pakids.team/sitemap.xml
+Sitemap: https://www.pakids.team/sitemap.xml
 
 # Crawl-delay
 Crawl-delay: 1

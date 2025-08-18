@@ -17,7 +17,7 @@ export function Header() {
       <div className="cursor-pointer">
         <Image
           src="/pakids-symbol-logo.png"
-          alt="Pakids"
+          alt="파키즈 로고 - Pakids Creative Agency"
           width={150}
           height={100}
           className="transition-transform duration-300 hover:scale-125"
