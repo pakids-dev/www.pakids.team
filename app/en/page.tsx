@@ -8,8 +8,8 @@ import { Footer } from "@/components/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Pakids - Creative Agency | 파키즈",
-  description: "Pakids: Your Vision, Our Technology | 파키즈: 당신의 비전, 우리의 기술",
+  title: "Pakids - Creative Agency",
+  description: "파키즈: 당신의 비전, 우리의 기술 | Pakids: Your Vision, Our Technology",
   alternates: {
     canonical: "/en",
     languages: {
@@ -18,8 +18,8 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Pakids - Creative Agency | 파키즈",
-    description: "Pakids: Your Vision, Our Technology",
+    title: "파키즈 | Pakids - Creative Agency",
+    description: "Pakids: Your Vision, Our Technology | 파키즈: 당신의 비전, 우리의 기술",
     url: "https://www.pakids.team/en",
     siteName: "Pakids",
     images: [
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         url: "https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg",
         width: 1200,
         height: 630,
-        alt: "Pakids - Creative Agency",
+        alt: "파키즈 | Pakids - Creative Agency",
       },
     ],
     locale: "en_US",

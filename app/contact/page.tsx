@@ -62,7 +62,7 @@ export default function ContactPage() {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "ContactPage",
-              name: "Contact - Pakids",
+              name: "파키즈 | 문의하기",
               url: "https://www.pakids.team/contact",
               inLanguage: "ko-KR",
             }),
