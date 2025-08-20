@@ -55,6 +55,43 @@ export default function ContactPage() {
       <AnimatedBackground />
       <div className="relative z-10">
         <Header />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ContactPage",
+              name: "Contact - Pakids",
+              url: "https://www.pakids.team/contact",
+              inLanguage: "ko-KR",
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Home",
+                  item: "https://www.pakids.team/",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Contact",
+                  item: "https://www.pakids.team/contact",
+                },
+              ],
+            }),
+          }}
+        />
         <div className="container mx-auto px-4 sm:px-6 py-12 mt-24"> {/* mt-24 추가 */}
           {/* Breadcrumb - 모바일에서는 숨김 */}
           <nav className="hidden sm:flex items-center space-x-2 text-sm text-gray-400 mb-16">

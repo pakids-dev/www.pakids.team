@@ -3,9 +3,25 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
-import { LanguageProvider } from "@/components/language-context"
+import { LanguageInitializer } from "@/components/language-initializer"
 
 const inter = Inter({ subsets: ["latin"] })
+
+// Environment variables for SEO and GTM
+const gtmId = process.env.NEXT_PUBLIC_GTM_ID
+const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+const naverSiteVerification = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION
+const bingSiteVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+const yandexSiteVerification = process.env.NEXT_PUBLIC_YANDEX_SITE_VERIFICATION
+const facebookDomainVerification = process.env.NEXT_PUBLIC_FACEBOOK_DOMAIN_VERIFICATION
+const pinterestSiteVerification = process.env.NEXT_PUBLIC_PINTEREST_SITE_VERIFICATION
+
+const otherVerifications: Record<string, string> = {}
+if (naverSiteVerification) otherVerifications["naver-site-verification"] = naverSiteVerification
+if (bingSiteVerification) otherVerifications["msvalidate.01"] = bingSiteVerification
+if (yandexSiteVerification) otherVerifications["yandex-verification"] = yandexSiteVerification
+if (facebookDomainVerification) otherVerifications["facebook-domain-verification"] = facebookDomainVerification
+if (pinterestSiteVerification) otherVerifications["p:domain_verify"] = pinterestSiteVerification
 
 export const metadata: Metadata = {
   title: "Pakids - 파키즈 크리에이티브 에이전시 | Creative Agency",
@@ -22,6 +38,10 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
+  verification: {
+    google: googleSiteVerification,
+    other: otherVerifications,
+  },
   formatDetection: {
     email: false,
     address: false,
@@ -31,7 +51,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
     languages: {
-      "ko-KR": "/ko",
+      "ko-KR": "/",
       "en-US": "/en",
     },
   },
@@ -95,24 +115,67 @@ export default function RootLayout({
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
               j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-TZHB8MQD');
+              })(window,document,'script','dataLayer','${gtmId ?? 'GTM-TZHB8MQD'}');
             `,
           }}
         />
         {/* End Google Tag Manager */}
+        <Script
+          id="ld-json-org"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                name: "Pakids",
+                alternateName: "파키즈",
+                url: "https://www.pakids.team",
+                logo: "https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg",
+                sameAs: [],
+                contactPoint: [
+                  {
+                    "@type": "ContactPoint",
+                    telephone: "+82-10-3255-4653",
+                    contactType: "customer service",
+                    areaServed: "KR",
+                    availableLanguage: ["Korean", "English"],
+                  },
+                ],
+                address: {
+                  "@type": "PostalAddress",
+                  streetAddress: "중산중앙로 21, 3층 302-337호(중화산동2가)",
+                  addressLocality: "전주시 완산구",
+                  addressRegion: "전북특별자치도",
+                  postalCode: "",
+                  addressCountry: "KR",
+                },
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                name: "Pakids",
+                alternateName: "파키즈",
+                url: "https://www.pakids.team",
+                inLanguage: "ko-KR",
+              },
+            ]),
+          }}
+        />
       </head>
       <body className={`${inter.className} bg-black text-white antialiased`}>
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe 
-            src="https://www.googletagmanager.com/ns.html?id=GTM-TZHB8MQD"
+            src={`https://www.googletagmanager.com/ns.html?id=${gtmId ?? 'GTM-TZHB8MQD'}`}
             height="0" 
             width="0" 
             style={{display: 'none', visibility: 'hidden'}}
           />
         </noscript>
         {/* End Google Tag Manager (noscript) */}
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageInitializer>{children}</LanguageInitializer>
       </body>
     </html>
   )

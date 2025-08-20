@@ -1,5 +1,6 @@
 {
- "name": "App",
+ "name": "Pakids",
+ "short_name": "Pakids",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

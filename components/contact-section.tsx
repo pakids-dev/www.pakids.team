@@ -17,8 +17,8 @@ export function ContactSection() {
           </div>
           <div className="flex items-center gap-2">
             <span className="text-gray-400">{t("phone")}:</span>
-            <a href="tel:+82-3255-4653" className="text-white hover:text-[#1a237e] transition-colors">
-              +82 010-3255-4653
+            <a href="tel:+821032554653" className="text-white hover:text-[#1a237e] transition-colors">
+              +82 10-3255-4653
             </a>
           </div>
           <div className="flex items-center gap-2">

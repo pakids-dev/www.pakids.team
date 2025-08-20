@@ -8,7 +8,7 @@ export function Footer() {
         <div className="mb-8">
           <div className="flex items-center gap-4 mb-6">
             <Link href="/" className="inline-block leading-5">
-              <Image src="/pakids-symbol-logo.png" alt="Pakids" width={200} height={100} className="h-8 w-auto" />
+              <Image src="/pakids-symbol-logo.png" alt="파키즈 로고 - Pakids" width={200} height={100} className="h-8 w-auto" />
             </Link>
             <span className="text-2xl font-bold">{""}</span>
           </div>

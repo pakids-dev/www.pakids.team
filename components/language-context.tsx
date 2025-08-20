@@ -102,8 +102,8 @@ const translations = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>("ko")
+export function LanguageProvider({ children, defaultLanguage = "ko" }: { children: ReactNode; defaultLanguage?: Language }) {
+  const [language, setLanguage] = useState<Language>(defaultLanguage)
 
   const t = (key: string): string => {
     return translations[language][key as keyof (typeof translations)["ko"]] || key

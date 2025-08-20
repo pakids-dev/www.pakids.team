@@ -4,11 +4,9 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import Image from "next/image"
 import { useLanguage } from "./language-context"
-import { useState } from "react"
 
 export function Header() {
-  const { language, setLanguage, t } = useLanguage()
-  const [isHovered, setIsHovered] = useState(false)
+  const { language, t } = useLanguage()
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12">
@@ -30,22 +28,22 @@ export function Header() {
 
       <div className="flex items-center space-x-4">
         <div className="hidden md:flex items-center space-x-2">
-          <button
-            onClick={() => setLanguage("ko")}
+          <Link
+            href="/"
             className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
               language === "ko" ? "bg-[#1a237e] text-white" : "text-gray-400 hover:text-white"
             }`}
           >
             KR
-          </button>
-          <button
-            onClick={() => setLanguage("en")}
+          </Link>
+          <Link
+            href="/en"
             className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
               language === "en" ? "bg-[#1a237e] text-white" : "text-gray-400 hover:text-white"
             }`}
           >
             EN
-          </button>
+          </Link>
         </div>
         <Link href="/contact">
           <Button className="bg-transparent hover:bg-gray-800 text-white px-6">
