@@ -31,14 +31,14 @@ export function HeroSection() {
         <p className="text-sm md:text-base text-gray-400 mb-4 tracking-wider uppercase">{t("ux_ui_dev")}</p>
 
         <h1
-          className="break-normal font-bold text-center text-[40px] sm:text-[60px] md:text-[80px] lg:text-[110px] xl:text-[150px] bg-clip-text text-transparent leading-[1.1] sm:leading-[1.0] md:leading-[0.95] lg:leading-[0.9] mb-8"
+          className="break-normal font-bold text-center text-[40px] sm:text-[60px] md:text-[80px] lg:text-[110px] xl:text-[150px] bg-clip-text text-transparent leading-[1.5] sm:leading-[1.4] md:leading-[1.35] lg:leading-[1.3] xl:leading-[1.25] mb-8 py-8"
           aria-label="Your Vision, Our Technology"
         >
           <span aria-hidden="true">
             {/*  Added flex flex-col items-center to ensure proper centering */}
             <div className="flex flex-col items-center">
               {/* First line: "Your Vision" - forced to stay on one line */}
-              <div className="whitespace-nowrap" style={{ marginBottom: "0.2em" }}>
+              <div className="whitespace-nowrap" style={{ marginBottom: "0.1em" }}>
                 <span
                   className="bg-gradient-to-r from-[#1a237e] via-[#F5F5F8] to-[#1a237e] bg-clip-text text-transparent animate-text-reveal"
                   style={{ display: "inline-block", backgroundSize: "1400% 100%", backgroundPosition: "0% 0%" }}
@@ -148,7 +148,7 @@ export function HeroSection() {
               </div>
 
               {/* Second line: "Our Technology" - forced to stay on one line */}
-              <div className="whitespace-nowrap">
+              <div className="whitespace-nowrap pb-4">
                 <span
                   className="bg-gradient-to-r from-[#1a237e] via-[#F5F5F8] to-[#1a237e] bg-clip-text text-transparent animate-text-reveal"
                   style={{
