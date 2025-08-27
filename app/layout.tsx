@@ -25,14 +25,14 @@ if (pinterestSiteVerification) otherVerifications["p:domain_verify"] = pinterest
 
 export const metadata: Metadata = {
   title: {
-    default: "파키즈 | Pakids 크리에이티브 에이전시",
+    default: "파키즈 - 크리에이티브 에이전시 | Pakids",
     template: "파키즈 | %s",
   },
-  description: "파키즈(Pakids): 당신의 비전, 우리의 기술 | Your Vision, Our Technology",
-  keywords: "파키즈, 파키즈 에이전시, pakids, pakids agency, 크리에이티브 에이전시, 디지털 마케팅, 웹 개발, 모바일 앱 개발, SI, 스타트업, 창업, 소프트웨어 개발, IT 솔루션, UX/UI 디자인, 브랜딩, 디지털 전환, 웹사이트 제작, 앱 개발, 프로덕트 디자인, 사용자 경험, 인터페이스 디자인, 반응형 웹, 프론트엔드 개발, 백엔드 개발, 풀스택 개발, 웹 에이전시, 앱 제작 회사, 개발 외주, 개발 용역, React, Next.js, TypeScript, Node.js, AWS, 클라우드 서비스, SEO 최적화, 성능 최적화, 데이터베이스 설계, API 개발, 마이크로서비스, DevOps, CI/CD, creative agency, digital marketing, web development, mobile app development, system integration, startup, entrepreneurship, UX/UI design, branding, digital transformation, website creation, app development, product design, user experience, interface design, responsive web, frontend development, backend development, fullstack development, cloud services, SEO optimization, performance optimization, database design, API development, microservices",
-  authors: [{ name: "Pakids" }],
-  creator: "Pakids",
-  publisher: "Pakids",
+  description: "파키즈는 혁신적인 크리에이티브 에이전시입니다. 파키즈(Pakids)와 함께 당신의 비전을 현실로 만들어보세요. Your Vision, Our Technology",
+  keywords: "파키즈, 파키즈, 파키즈 에이전시, 파키즈 크리에이티브, pakids, pakids agency, 크리에이티브 에이전시, 디지털 마케팅, 웹 개발, 모바일 앱 개발, SI, 스타트업, 창업, 소프트웨어 개발, IT 솔루션, UX/UI 디자인, 브랜딩, 디지털 전환, 웹사이트 제작, 앱 개발, 프로덕트 디자인, 사용자 경험, 인터페이스 디자인, 반응형 웹, 프론트엔드 개발, 백엔드 개발, 풀스택 개발, 웹 에이전시, 앱 제작 회사, 개발 외주, 개발 용역, React, Next.js, TypeScript, Node.js, AWS, 클라우드 서비스, SEO 최적화, 성능 최적화, 데이터베이스 설계, API 개발, 마이크로서비스, DevOps, CI/CD, creative agency, digital marketing, web development, mobile app development, system integration, startup, entrepreneurship, UX/UI design, branding, digital transformation, website creation, app development, product design, user experience, interface design, responsive web, frontend development, backend development, fullstack development, cloud services, SEO optimization, performance optimization, database design, API development, microservices",
+  authors: [{ name: "파키즈" }],
+  creator: "파키즈",
+  publisher: "파키즈",
   robots: {
     index: true,
     follow: true,
@@ -77,10 +77,10 @@ export const metadata: Metadata = {
     ]
   },
   openGraph: {
-    title: "파키즈 | Pakids 크리에이티브 에이전시",
-    description: "파키즈(Pakids): 당신의 비전, 우리의 기술 | Your Vision, Our Technology",
+    title: "파키즈 | Pakids - Creative Agency",
+    description: "파키즈(Pakids) - 혁신적인 크리에이티브 에이전시. Your Vision, Our Technology | 당신의 비전, 우리의 기술",
     url: "https://www.pakids.team",
-    siteName: "파키즈",
+    siteName: "파키즈 | Pakids",
     images: [
       {
         url: "https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg",
@@ -95,8 +95,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "파키즈 | Pakids 크리에이티브 에이전시",
-    description: "파키즈(Pakids): 당신의 비전, 우리의 기술 | Your Vision, Our Technology",
+    title: "파키즈 | Pakids - Creative Agency",
+    description: "파키즈(Pakids) - 혁신적인 크리에이티브 에이전시. Your Vision, Our Technology | 당신의 비전, 우리의 기술",
     images: ["https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg"],
   },
 }
@@ -133,10 +133,11 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "Organization",
                 name: "파키즈",
-                alternateName: "Pakids",
+                alternateName: ["Pakids", "파키즈 크리에이티브", "Pakids Creative", "파키즈 에이전시", "Pakids Agency"],
                 url: "https://www.pakids.team",
                 logo: "https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg",
                 sameAs: [],
+                description: "파키즈(Pakids)는 혁신적인 크리에이티브 에이전시입니다.",
                 contactPoint: [
                   {
                     "@type": "ContactPoint",
@@ -159,9 +160,10 @@ export default function RootLayout({
                 "@context": "https://schema.org",
                 "@type": "WebSite",
                 name: "파키즈",
-                alternateName: "Pakids",
+                alternateName: ["Pakids", "파키즈 크리에이티브", "Pakids Creative"],
                 url: "https://www.pakids.team",
-                inLanguage: "ko-KR",
+                inLanguage: ["ko-KR", "en-US"],
+                description: "파키즈(Pakids) 크리에이티브 에이전시 공식 웹사이트",
               },
             ]),
           }}

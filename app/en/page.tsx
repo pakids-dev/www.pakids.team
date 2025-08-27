@@ -8,8 +8,9 @@ import { Footer } from "@/components/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Pakids - Creative Agency",
-  description: "파키즈: 당신의 비전, 우리의 기술 | Pakids: Your Vision, Our Technology",
+  title: "파키즈 - Creative Agency | Pakids",
+  description: "Pakids (파키즈) - Innovative Creative Agency. Your Vision, Our Technology | 혁신적인 크리에이티브 에이전시",
+  keywords: "Pakids, 파키즈, pakids agency, 파키즈 에이전시, creative agency, 크리에이티브 에이전시, digital marketing, web development, mobile app, startup, UX/UI design, branding",
   alternates: {
     canonical: "/en",
     languages: {
@@ -18,10 +19,10 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "파키즈 | Pakids - Creative Agency",
-    description: "Pakids: Your Vision, Our Technology | 파키즈: 당신의 비전, 우리의 기술",
+    title: "Pakids | 파키즈 - Creative Agency",
+    description: "Pakids (파키즈) - Innovative Creative Agency. Your Vision, Our Technology | 혁신적인 크리에이티브 에이전시",
     url: "https://www.pakids.team/en",
-    siteName: "Pakids",
+    siteName: "Pakids | 파키즈",
     images: [
       {
         url: "https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg",
