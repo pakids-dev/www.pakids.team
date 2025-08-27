@@ -25,7 +25,7 @@ if (pinterestSiteVerification) otherVerifications["p:domain_verify"] = pinterest
 
 export const metadata: Metadata = {
   title: {
-    default: "파키즈 - 크리에이티브 에이전시 | Pakids",
+    default: "파키즈(Pakids) | 당신의 비전을 현실로",
     template: "파키즈 | %s",
   },
   description: "파키즈는 혁신적인 크리에이티브 에이전시입니다. 파키즈(Pakids)와 함께 당신의 비전을 현실로 만들어보세요. Your Vision, Our Technology",
