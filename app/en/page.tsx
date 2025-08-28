@@ -8,7 +8,7 @@ import { Footer } from "@/components/footer"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "파키즈 - Creative Agency | Pakids",
+  title: "파키즈(Pakids) | 당신의 비전을 현실로",
   description: "Pakids (파키즈) - Innovative Creative Agency. Your Vision, Our Technology | 혁신적인 크리에이티브 에이전시",
   keywords: "Pakids, 파키즈, pakids agency, 파키즈 에이전시, creative agency, 크리에이티브 에이전시, digital marketing, web development, mobile app, startup, UX/UI design, branding",
   alternates: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Pakids | 파키즈 - Creative Agency",
+    title: "파키즈(Pakids) | 당신의 비전을 현실로",
     description: "Pakids (파키즈) - Innovative Creative Agency. Your Vision, Our Technology | 혁신적인 크리에이티브 에이전시",
     url: "https://www.pakids.team/en",
     siteName: "Pakids | 파키즈",
