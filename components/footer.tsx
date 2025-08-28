@@ -38,7 +38,7 @@ export function Footer() {
               홈
             </Link>
             <Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">
-              소개
+              문의하기
             </Link>
           </div>
         </div>

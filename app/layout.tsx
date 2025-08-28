@@ -25,7 +25,7 @@ if (pinterestSiteVerification) otherVerifications["p:domain_verify"] = pinterest
 
 export const metadata: Metadata = {
   title: {
-    default: "파키즈(Pakids) | 당신의 비전을 현실로",
+    default: "파키즈 | 당신의 비전을 현실로",
     template: "파키즈 | %s",
   },
   description: "파키즈는 혁신적인 크리에이티브 에이전시입니다. 파키즈(Pakids)와 함께 당신의 비전을 현실로 만들어보세요. Your Vision, Our Technology",
@@ -77,8 +77,8 @@ export const metadata: Metadata = {
     ]
   },
   openGraph: {
-    title: "파키즈 | Pakids - Creative Agency",
-    description: "파키즈(Pakids) - 혁신적인 크리에이티브 에이전시. Your Vision, Our Technology | 당신의 비전, 우리의 기술",
+    title: "파키즈 | 당신의 비전을 현실로",
+    description: "파키즈(Pakids) - 혁신적인 크리에이티브 에이전시 당신의 비전, 우리의 기술",
     url: "https://www.pakids.team",
     siteName: "파키즈 | Pakids",
     images: [
@@ -86,7 +86,7 @@ export const metadata: Metadata = {
         url: "https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg",
         width: 1200,
         height: 630,
-        alt: "파키즈 | Pakids - Creative Agency",
+        alt: "파키즈 | 당신의 비전을 현실로",
       },
     ],
     locale: "ko_KR",
@@ -95,8 +95,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "파키즈 | Pakids - Creative Agency",
-    description: "파키즈(Pakids) - 혁신적인 크리에이티브 에이전시. Your Vision, Our Technology | 당신의 비전, 우리의 기술",
+    title: "파키즈 | 당신의 비전을 현실로",
+    description: "파키즈(Pakids) - 혁신적인 크리에이티브 에이전시 당신의 비전, 우리의 기술",
     images: ["https://s3.us-east-2.amazonaws.com/cdn.pakids.team/pakids-logo-navy-white.jpg"],
   },
 }
