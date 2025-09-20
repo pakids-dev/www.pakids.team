@@ -10,6 +10,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-6 md:px-12">
+      <meta name="naver-site-verification" content="72af39a02a8630ae797d64eb1f88d67f251a0489" />
   <div className="flex items-center">
     <Link href="/">
       <div className="cursor-pointer">
