@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     siteName: '파키즈 | Pakids',
     images: [
       {
-        url: 'https://file.pakids.team/toss-miniapp-banner.png',
+        url: 'https://file.pakids.cloud/toss-miniapp-banner.png',
         width: 1200,
         height: 630,
         alt: '토스 미니앱 | 파키즈',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '토스 미니앱 제작 | 파키즈',
     description: '3,000만 유저에게 내 서비스 출시하기',
-    images: ['https://file.pakids.team/toss-miniapp-banner.png'],
+    images: ['https://file.pakids.cloud/toss-miniapp-banner.png'],
   },
   alternates: {
     canonical: '/toss-miniapp',
