@@ -12,13 +12,6 @@ export function AnimatedBackground() {
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
 
-      <div className="absolute inset-x-0 top-20 z-10 pointer-events-none">
-        <div className="grid grid-cols-7 h-[calc(100vh-5rem)] w-full">
-          {Array.from({ length: 7 }).map((_, index) => (
-            <div key={index} className="border-r border-white/5 h-full" />
-          ))}
-        </div>
-      </div>
 
       {/* Wave Shape Animations */}
       <div className="wave-shape absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[#1a237e]/20 via-[#2196f3]/10 to-transparent rounded-full blur-2xl"></div>
