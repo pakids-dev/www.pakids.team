@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Footer } from "@/components/footer";
 import solutionBanner from "@/public/toss-miniapp/solution-banner.png";
 
@@ -84,13 +85,13 @@ function SectionHeading({
         </p>
       ) : null}
       <h2
-        className={`text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl ${titleClassName}`}
+        className={`text-[clamp(1.5rem,6vw,2.25rem)] font-bold tracking-tight text-slate-900 break-keep ${titleClassName}`}
       >
         {title}
       </h2>
       {description ? (
         <p
-          className={`mx-auto max-w-2xl text-base text-slate-600 sm:text-lg ${descriptionClassName}`}
+          className={`mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep ${descriptionClassName}`}
         >
           {description}
         </p>
@@ -138,14 +139,18 @@ function CTAButtons({
   return (
     <div className={`flex ${wrap} ${gap} ${justify} ${className}`}>
       <a
-        href="/contact"
+        href="https://pakids-toss-miniapp.channel.io"
+        target="_blank"
+        rel="noopener noreferrer"
         className={`inline-flex items-center justify-center rounded-full font-semibold transition ${sizeClasses} ${primaryClasses}`}
       >
         상담하기
       </a>
       {showSecondary ? (
         <a
-          href="mailto:contact@pakids.team"
+          href="https://drive.google.com/file/d/1l86TuoUPG3kINOTl-WIw8sLAiE7idSQo/view?usp=drive_link"
+          target="_blank"
+          rel="noopener noreferrer"
           className={`${
             hideSecondaryOnMobile ? "hidden sm:inline-flex" : "inline-flex"
           } items-center justify-center rounded-full font-semibold transition ${sizeClasses} ${secondaryClasses}`}
@@ -208,13 +213,13 @@ function HeroSection() {
         className="flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between"
       >
         <div className="space-y-6 lg:max-w-xl">
-          <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl">
+          <h1 className="text-[clamp(1.75rem,7vw,3rem)] font-bold leading-tight tracking-tight">
             토스 미니앱으로
             <br />더 많은 고객과
             <br />
             빠르게 만나는 방법
           </h1>
-          <p className="text-lg text-slate-600">
+          <p className="text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
             토스 미니앱으로 3,000만 사용자에게 내 서비스를 출시해보세요.
             <br />
             이미 운영중인 서비스, 새로 런칭하는 신규 서비스, 모두 토스
@@ -284,7 +289,7 @@ function ProblemSection() {
           >
             <div style={{ transform: `rotate(${rotations[idx]}deg)` }}>
               <div className="group flex min-h-[96px] items-center rounded-2xl border border-blue-100 bg-white px-5 py-4 text-blue-700 shadow-md shadow-blue-100/40 transition duration-200 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:border-blue-600 hover:bg-blue-700 hover:text-white hover:shadow-blue-300/40">
-                <p className="w-full text-center text-base font-semibold transition-colors duration-200">
+                <p className="w-full text-center text-base font-semibold transition-colors duration-200 break-keep">
                   {text}
                 </p>
               </div>
@@ -298,15 +303,29 @@ function ProblemSection() {
 
 function MiniAppIntroSection() {
   const highlights = [
-    "토스의 3,000만 사용자에게 즉시 노출",
-    "결제 · 본인인증 등 핵심 기능을 기본 제공",
-    "플랫폼 신뢰도 기반의 높은 전환율",
+    {
+      icon: "/toss-miniapp/money.png",
+      title: "비용 · 시간 절감",
+      desc: "하이브리드 앱 대비 개발 비용 60% 절감, 1~2개월 내 출시",
+    },
+    {
+      icon: "/toss-miniapp/target.png",
+      title: "정밀 타겟 마케팅",
+      desc: "3,000만 토스 유저의 세그먼트 기반 효율적 고객 도달",
+    },
+    {
+      icon: "/toss-miniapp/lock.png",
+      title: "신뢰성 높은 인증 · 결제",
+      desc: "토스의 검증된 인증/결제 서비스로 높은 편리성과 사용성 제공",
+    },
   ];
 
   return (
-    <Section className="relative overflow-hidden bg-slate-900 text-white">
-      <div className="absolute inset-0 opacity-70">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.25),transparent_45%),radial-gradient(circle_at_80%_0%,rgba(14,165,233,0.18),transparent_35%),radial-gradient(circle_at_50%_70%,rgba(14,116,144,0.22),transparent_45%)]" />
+    <Section className="relative overflow-hidden bg-white">
+      {/* 배경 데코레이션 */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-gradient-to-br from-blue-100/60 to-cyan-100/40 blur-3xl" />
+        <div className="absolute -right-32 bottom-0 h-[350px] w-[350px] rounded-full bg-gradient-to-tl from-blue-100/50 to-indigo-100/30 blur-3xl" />
       </div>
 
       <motion.div
@@ -314,81 +333,63 @@ function MiniAppIntroSection() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeUp}
-        className="relative grid gap-10 lg:grid-cols-2 lg:items-center"
+        className="relative"
       >
-        <div className="space-y-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-blue-200">
-            Toss Miniapp
-          </p>
-          <h2 className="text-3xl font-bold leading-tight sm:text-4xl">
+        {/* 섹션 헤더 */}
+        <div className="mb-12 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
+            <span className="h-2 w-2 rounded-full bg-blue-500" />
+            <span className="text-sm font-semibold text-blue-700">
+              토스 미니앱이란?
+            </span>
+          </div>
+          <h2 className="text-[clamp(1.5rem,6vw,2.25rem)] font-bold tracking-tight text-slate-900 break-keep">
             토스 안에서 바로 만나는
             <br />
-            새로운 서비스 런칭 방식
+            <span className="text-blue-600">새로운 서비스 런칭 방식</span>
           </h2>
-          <p className="text-lg text-slate-200">
+          <p className="mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
             별도의 앱 설치 없이 토스 홈에서 바로 진입해 고객의 첫 경험을 줄여
-            전환을 높입니다. 파키즈 팀은 기획, 개발, 검수까지 원스톱으로 지원해
-            빠르게 시장을 검증할 수 있도록 돕습니다.
+            전환을 높입니다. <br />
+            파키즈 팀은 기획, 개발, 검수까지 턴키 방식으로 지원합니다.
           </p>
-
-          <div className="grid gap-3 sm:grid-cols-2">
-            {highlights.map((item) => (
-              <motion.div
-                key={item}
-                variants={fadeSlideUp}
-                className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 shadow-[0_8px_30px_rgba(0,0,0,0.18)] backdrop-blur"
-              >
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-400 text-sm font-semibold text-slate-900">
-                  +
-                </div>
-                <p className="text-base text-white/90">{item}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <CTAButtons variant="dark" />
         </div>
 
+        {/* 하이라이트 카드 그리드 */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          variants={fadeSlideUp}
-          className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-800 via-slate-900 to-slate-950 p-6 shadow-2xl"
+          variants={stagger}
+          className="grid gap-6 sm:grid-cols-3"
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_40%_30%,rgba(59,130,246,0.25),transparent_45%),radial-gradient(circle_at_80%_60%,rgba(14,165,233,0.25),transparent_40%)]" />
-          <div className="relative space-y-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-blue-200">Dashboard</p>
-                <p className="text-xl font-semibold text-white">
-                  Miniapp Launch
+          {highlights.map((item, idx) => (
+            <motion.div
+              key={item.title}
+              variants={fadeSlideUp}
+              transition={{ delay: idx * 0.1 }}
+              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/50"
+            >
+              <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-blue-100/80 to-cyan-100/60 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="relative">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-3 shadow-lg shadow-blue-200">
+                  <Image
+                    src={item.icon}
+                    alt={item.title}
+                    width={28}
+                    height={28}
+                    className="h-7 w-7 object-contain brightness-0 invert"
+                  />
+                </div>
+                <h3 className="mb-2 text-lg font-bold text-slate-900">
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-slate-600 break-keep">
+                  {item.desc}
                 </p>
               </div>
-              <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs text-blue-50">
-                실시간 트래픽
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              </div>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="text-sm text-slate-200">유입 전환율</p>
-                <p className="text-3xl font-bold text-white">58%</p>
-                <p className="text-xs text-blue-200">앱 설치 없이 바로 진입</p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                <p className="text-sm text-slate-200">런칭 리드타임</p>
-                <p className="text-3xl font-bold text-white">-40%</p>
-                <p className="text-xs text-blue-200">검수 프로세스 최적화</p>
-              </div>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-gradient-to-r from-blue-500/20 via-cyan-400/20 to-emerald-400/20 p-4">
-              <p className="text-sm text-blue-100">Security & Payment</p>
-              <p className="text-lg font-semibold text-white">
-                토스 인증 · 결제 연동으로 초기 구축 비용과 시간을 절감합니다.
-              </p>
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </motion.div>
       </motion.div>
     </Section>
@@ -398,129 +399,244 @@ function MiniAppIntroSection() {
 function ComparisonSection() {
   const comparisons = [
     {
-      title: "배포 프로세스",
-      traditional: "스토어 심사 · 업로드 · 배포 동기화 필요",
-      miniapp: "토스 검수 통과 후 즉시 배포, 설치 없이 접근",
+      icon: "/toss-miniapp/money.png",
+      title: "비용 & 시간",
+      subtitle: "개발 리소스 절감",
+      traditional: {
+        label: "하이브리드 앱",
+        points: [
+          "iOS/Android 동시 개발 필요",
+          "스토어 등록 비용 및 심사 기간 소요",
+          "평균 개발 기간 3~6개월",
+        ],
+      },
+      miniapp: {
+        label: "토스 미니앱",
+        points: [
+          "단일 웹 코드베이스로 개발",
+          "토스 검수 후 즉시 배포",
+          "평균 개발 기간 1~2개월",
+        ],
+        highlight: "개발 비용 최대 60% 절감",
+      },
     },
     {
-      title: "고객 유입",
-      traditional: "마케팅/광고로 앱 설치 유도 → 이탈률 발생",
-      miniapp: "토스 홈/탐색 탭 진입 → 클릭 즉시 서비스 경험",
+      icon: "/toss-miniapp/target.png",
+      title: "마케팅",
+      subtitle: "타겟 고객 도달",
+      traditional: {
+        label: "하이브리드 앱",
+        points: [
+          "광고 예산으로 앱 설치 유도",
+          "사용자 데이터 직접 수집 필요",
+          "타겟팅을 위한 추가 분석 비용",
+        ],
+      },
+      miniapp: {
+        label: "토스 미니앱",
+        points: [
+          "나이대, 소비 습관, 관심사 기반 세그먼트",
+          "토스 배너 광고 및 바이럴 시스템 활용",
+          "3,000만 유저풀 기반 효율적 타겟팅",
+        ],
+        highlight: "내 서비스에 맞는 고객에게 직접 도달",
+      },
     },
     {
-      title: "핵심 기능",
-      traditional: "인증/결제 직접 구축, 보안 인증 비용 부담",
-      miniapp: "토스 인증 · 결제 · 사용자 정보 흐름 기본 제공",
+      icon: "/toss-miniapp/setting.png",
+      title: "운영 & 유지보수",
+      subtitle: "지속적인 서비스 관리",
+      traditional: {
+        label: "하이브리드 앱",
+        points: [
+          "OS별 빌드 및 배포 관리",
+          "스토어 업데이트 심사 대기",
+          "버전 파편화에 따른 지원 부담",
+        ],
+      },
+      miniapp: {
+        label: "토스 미니앱",
+        points: [
+          "빠르게 수정/추가 기능 반영",
+          "콘솔 관리로 유지보수 용이",
+          "토스 인프라 기반 안정적 운영",
+        ],
+        highlight: "운영 공수 대폭 감소",
+      },
     },
     {
-      title: "운영/유지보수",
-      traditional: "OS별 빌드 관리, 업데이트 공수 증가",
-      miniapp: "단일 웹 코드베이스, 서버 배포만으로 반영",
+      icon: "/toss-miniapp/lock.png",
+      title: "인증 & 결제",
+      subtitle: "핵심 기능 내장",
+      traditional: {
+        label: "하이브리드 앱",
+        points: [
+          "본인인증 모듈 별도 연동 필요",
+          "PG사 계약 및 결제 시스템 구축",
+          "보안 인증(ISMS 등) 비용 부담",
+        ],
+      },
+      miniapp: {
+        label: "토스 미니앱",
+        points: [
+          "토스 인증 API 즉시 연동",
+          "토스페이 결제 기본 제공",
+          "토스 보안 인프라 활용",
+        ],
+        highlight: "높은 인증·결제 수준 유지",
+      },
     },
-  ];
-
-  const benefits = [
-    "빠른 MVP 출시와 시장 검증",
-    "토스 브랜드 신뢰 기반 전환율",
-    "보안/결제/인증 내장으로 개발 비용 절감",
-    "유저 풀을 활용한 성장 마케팅 기회",
   ];
 
   return (
-    <Section className="bg-slate-50">
+    <Section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50">
+      {/* 배경 데코레이션 */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-0 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-blue-100/50 to-cyan-100/30 blur-3xl" />
+        <div className="absolute right-0 bottom-0 h-[400px] w-[400px] translate-x-1/3 translate-y-1/3 rounded-full bg-gradient-to-tl from-blue-100/40 to-indigo-100/20 blur-3xl" />
+      </div>
+
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeUp}
-        className="mb-12 text-center space-y-4"
+        className="relative mb-16 text-center space-y-5"
       >
-        <p className="text-sm font-semibold uppercase tracking-[0.12em] text-blue-600">
-          Compare
-        </p>
-        <h2 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-          기존 앱 개발 vs 토스 미니앱
+        <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
+          <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+          <span className="text-sm font-semibold text-blue-700">
+            왜 토스 미니앱인가요?
+          </span>
+        </div>
+        <h2 className="text-[clamp(1.5rem,6vw,2.5rem)] font-bold text-slate-900 break-keep">
+          기존 하이브리드 앱 개발과
+          <br className="hidden sm:block" />
+          <span className="text-blue-600"> 토스 미니앱</span>의 차이
         </h2>
-        <p className="text-base text-slate-600 sm:text-lg">
-          동일한 기능이라도 진입 경로와 배포 방식에 따라 결과가 달라집니다. 토스
-          미니앱이 제공하는 효율과 속도를 확인하세요.
+        <p className="mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
+          같은 서비스라도 어떻게 만드느냐에 따라 비용, 시간, 성과가 완전히
+          달라집니다.
         </p>
       </motion.div>
 
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.1 }}
         variants={stagger}
-        className="grid gap-4"
+        className="relative grid gap-6 lg:grid-cols-2"
       >
         {comparisons.map((item, idx) => (
           <motion.div
             key={item.title}
             variants={fadeUp}
-            transition={{ delay: idx * 0.05 }}
-            className="grid items-stretch gap-3 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:grid-cols-[1.2fr,1fr,1fr]"
+            transition={{ delay: idx * 0.08 }}
+            className="group h-full"
           >
-            <div className="flex items-center gap-3">
-              <div className="grid h-10 w-10 place-items-center rounded-full bg-blue-50 text-blue-700 font-semibold">
-                0{idx + 1}
+            <div className="flex h-full flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/50">
+              {/* 헤더 */}
+              <div className="flex items-center gap-4 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white px-6 py-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-2.5 shadow-lg shadow-blue-200">
+                  <Image
+                    src={item.icon}
+                    alt={item.title}
+                    width={28}
+                    height={28}
+                    className="h-7 w-7 object-contain brightness-0 invert"
+                  />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-slate-500">
+                    {item.subtitle}
+                  </p>
+                  <h3 className="text-xl font-bold text-slate-900">
+                    {item.title}
+                  </h3>
+                </div>
+                <div className="ml-auto hidden rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 sm:block">
+                  0{idx + 1}
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-slate-500">비교 항목</p>
-                <p className="text-lg font-semibold text-slate-900">
-                  {item.title}
-                </p>
+
+              {/* 비교 콘텐츠 */}
+              <div className="grid flex-1 gap-4 p-6 xl:grid-cols-2">
+                {/* 기존 앱 */}
+                <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-5">
+                  <div className="mb-4 flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-slate-400" />
+                    <p className="text-sm font-semibold text-slate-600">
+                      {item.traditional.label}
+                    </p>
+                  </div>
+                  <ul className="space-y-3">
+                    {item.traditional.points.map((point) => (
+                      <li key={point} className="flex items-start gap-3">
+                        <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300" />
+                        <span className="text-sm text-slate-600">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* 토스 미니앱 */}
+                <div className="relative overflow-hidden rounded-2xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-5">
+                  <div className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br from-blue-400/20 to-cyan-400/20 blur-2xl" />
+                  <div className="relative">
+                    <div className="mb-4 flex items-center gap-2">
+                      <div className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                      <p className="text-sm font-semibold text-blue-700">
+                        {item.miniapp.label}
+                      </p>
+                      <span className="ml-auto rounded-full bg-blue-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-blue-600">
+                        추천
+                      </span>
+                    </div>
+                    <ul className="space-y-3">
+                      {item.miniapp.points.map((point) => (
+                        <li key={point} className="flex items-start gap-3">
+                          <svg
+                            className="mt-0.5 h-4 w-4 shrink-0 text-blue-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                            strokeWidth={2.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M5 13l4 4L19 7"
+                            />
+                          </svg>
+                          <span className="text-sm font-medium text-slate-700">
+                            {point}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                    {/* 하이라이트 배지 */}
+                    <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-200">
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13 10V3L4 14h7v7l9-11h-7z"
+                        />
+                      </svg>
+                      {item.miniapp.highlight}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="rounded-xl border border-slate-100 bg-slate-50 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
-                기존 앱
-              </p>
-              <p className="mt-2 text-sm text-slate-700">{item.traditional}</p>
-            </div>
-            <div className="rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50 to-cyan-50 p-4">
-              <p className="text-xs font-semibold uppercase tracking-[0.08em] text-blue-700">
-                토스 미니앱
-              </p>
-              <p className="mt-2 text-sm text-slate-800">{item.miniapp}</p>
             </div>
           </motion.div>
         ))}
-      </motion.div>
-
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeUp}
-        className="mt-10 grid gap-4 rounded-2xl border border-blue-100 bg-white p-6 shadow-sm lg:grid-cols-[1.1fr,1fr]"
-      >
-        <div className="space-y-3">
-          <p className="text-sm font-semibold text-blue-700">
-            Why Toss Miniapp
-          </p>
-          <h3 className="text-2xl font-bold text-slate-900">
-            토스 플랫폼의 신뢰와 유저풀을 그대로 활용하세요
-          </h3>
-          <p className="text-base text-slate-600">
-            파키즈 팀은 검수 전략부터 연동, QA, 운영 자동화까지 지원합니다.
-            플랫폼의 장점을 살린 기획과 UI/UX로 더 빠른 성과를 내드립니다.
-          </p>
-          <CTAButtons />
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {benefits.map((benefit, idx) => (
-            <motion.div
-              key={benefit}
-              variants={fadeSlideUp}
-              transition={{ delay: idx * 0.04 }}
-              className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3"
-            >
-              <div className="mt-1 h-2.5 w-2.5 rounded-full bg-blue-600" />
-              <p className="text-sm text-slate-800">{benefit}</p>
-            </motion.div>
-          ))}
-        </div>
       </motion.div>
     </Section>
   );
@@ -639,7 +755,7 @@ function ReviewSection() {
   ];
 
   return (
-    <Section>
+    <Section className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -647,10 +763,24 @@ function ReviewSection() {
         variants={fadeUp}
         className="mb-12"
       >
-        <SectionHeading
-          title="파키즈와 함께한 고객사에요"
-          description="실제 파키즈와 함께한 고객사의 경험을 확인하세요"
-        />
+        <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex-1 text-center lg:text-left">
+            <h2 className="text-[clamp(1.5rem,6vw,2.25rem)] font-bold tracking-tight text-slate-900 break-keep">
+              토스 미니앱, 전문가에게 맡기세요
+            </h2>
+            <p className="mt-3 text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
+              실제 파키즈와 함께한 고객사의 경험을 확인하세요
+            </p>
+          </div>
+          <div className="w-full max-w-[320px] shrink-0 sm:max-w-[400px] lg:max-w-[480px]">
+            <DotLottieReact
+              src="/toss-miniapp/review.lottie"
+              loop
+              autoplay
+              className="w-full"
+            />
+          </div>
+        </div>
       </motion.div>
 
       <motion.div
@@ -671,12 +801,12 @@ function ReviewSection() {
               boxShadow: "0 10px 30px rgba(15, 23, 42, 0.12)",
             }}
             whileTap={{ scale: 0.995 }}
-            className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white/90 p-6 shadow-sm backdrop-blur"
+            className="flex h-full flex-col rounded-2xl border border-slate-200 bg-white/90 p-4 shadow-sm backdrop-blur sm:p-6"
           >
-            <p className="mb-6 text-base leading-relaxed text-slate-700">
-              “{item.quote}”
+            <p className="mb-6 text-[clamp(0.8rem,3.5vw,1rem)] leading-relaxed text-slate-700 break-keep">
+              "{item.quote}"
             </p>
-            <div className="mt-auto text-sm font-semibold text-slate-500 text-right">
+            <div className="mt-auto text-[clamp(0.75rem,3vw,0.875rem)] font-semibold text-slate-500 text-right">
               {item.company}
             </div>
           </motion.div>
@@ -688,25 +818,53 @@ function ReviewSection() {
 
 function FooterAnchor() {
   return (
-    <div className="bg-slate-50">
-      <Section className="py-12 sm:py-16">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeUp}
-          className="text-center space-y-4"
-        >
-          <h3 className="text-3xl font-bold text-slate-900 sm:text-4xl">
-            토스 미니앱, 지금 상담해 보세요
-          </h3>
-          <p className="mx-auto max-w-2xl text-base text-slate-600 sm:text-lg">
-            토스 안에서 고객을 만나고 싶다면 파키즈 팀에 문의해주세요. 서비스
-            목표와 예산에 맞춰 기획·개발·런칭까지 한 번에 지원해드립니다.
-          </p>
-          <CTAButtons align="center" />
-        </motion.div>
-      </Section>
-    </div>
+    <Section className="relative overflow-hidden bg-white">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeSlideUp}
+        className="relative"
+      >
+        <div className="overflow-hidden rounded-3xl border border-blue-200 bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-700 p-5 text-white shadow-2xl shadow-blue-300/30 sm:p-8 lg:p-12">
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(255,255,255,0.1),transparent_40%)]" />
+          <div className="relative grid gap-8 lg:grid-cols-[1.2fr,1fr] lg:items-center">
+            <div className="space-y-4">
+              <h3 className="text-[clamp(1.25rem,5vw,1.875rem)] font-bold break-keep">
+                지금 바로 토스 미니앱으로
+                <br />
+                시작해보세요
+              </h3>
+              <p className="text-[clamp(0.875rem,4vw,1.125rem)] text-blue-100 break-keep">
+                파키즈 팀이 기획부터 개발, 검수, 런칭까지 한 번에 지원합니다.
+                <br className="hidden sm:block" />
+                토스의 인프라와 유저풀을 활용해 더 빠른 성과를 경험하세요.
+              </p>
+              <CTAButtons variant="dark" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { value: "60%", label: "개발 비용 절감" },
+                { value: "3,000만", label: "토스 유저 접근" },
+                { value: "1~2개월", label: "평균 개발 기간" },
+                { value: "맞춤형", label: "사용자 타겟 마케팅" },
+              ].map((stat) => (
+                <div
+                  key={stat.label}
+                  className="rounded-2xl border border-white/20 bg-white/10 p-3 text-center backdrop-blur sm:p-4"
+                >
+                  <p className="text-[clamp(1.25rem,5vw,1.875rem)] font-bold text-white">
+                    {stat.value}
+                  </p>
+                  <p className="mt-1 text-[clamp(0.625rem,2.5vw,0.875rem)] text-blue-100">
+                    {stat.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </Section>
   );
 }
