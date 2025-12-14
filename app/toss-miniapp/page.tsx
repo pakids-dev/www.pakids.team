@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Footer } from "@/components/footer";
 import solutionBanner from "@/public/toss-miniapp/solution-banner.png";
+import { useAnalytics } from "@/hooks/use-analytics";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -49,14 +51,17 @@ function Section({
   children,
   className = "",
   id,
+  sectionName,
 }: {
   children: React.ReactNode;
   className?: string;
   id?: string;
+  sectionName?: string;
 }) {
   return (
     <section
       id={id}
+      data-section={sectionName}
       className={`w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24 ${className}`}
     >
       <div className="mx-auto w-full max-w-6xl">{children}</div>
@@ -107,6 +112,8 @@ function CTAButtons({
   compact = false,
   showSecondary = true,
   hideSecondaryOnMobile = false,
+  sectionName,
+  onTrackCta,
 }: {
   variant?: "light" | "dark";
   align?: "start" | "center" | "end";
@@ -114,6 +121,8 @@ function CTAButtons({
   compact?: boolean;
   showSecondary?: boolean;
   hideSecondaryOnMobile?: boolean;
+  sectionName?: string;
+  onTrackCta?: (ctaType: string, sectionName?: string) => void;
 }) {
   const isDark = variant === "dark";
   const primaryClasses = isDark
@@ -142,6 +151,7 @@ function CTAButtons({
         href="https://pakids-toss-miniapp.channel.io"
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => onTrackCta?.("consult", sectionName)}
         className={`inline-flex items-center justify-center rounded-full font-semibold transition ${sizeClasses} ${primaryClasses}`}
       >
         상담하기
@@ -151,6 +161,7 @@ function CTAButtons({
           href="https://drive.google.com/file/d/1l86TuoUPG3kINOTl-WIw8sLAiE7idSQo/view?usp=drive_link"
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => onTrackCta?.("brochure", sectionName)}
           className={`${
             hideSecondaryOnMobile ? "hidden sm:inline-flex" : "inline-flex"
           } items-center justify-center rounded-full font-semibold transition ${sizeClasses} ${secondaryClasses}`}
@@ -163,22 +174,53 @@ function CTAButtons({
 }
 
 export default function TossMiniAppIntro() {
+  const { trackSectionView, trackCtaClick } = useAnalytics("/toss-miniapp");
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+            const name = entry.target.getAttribute("data-section") ?? undefined;
+            trackSectionView(name);
+          }
+        });
+      },
+      {
+        threshold: [0.25, 0.5],
+        rootMargin: "0px 0px -20% 0px",
+      }
+    );
+
+    const sections = document.querySelectorAll("[data-section]");
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, [trackSectionView]);
+
   return (
     <main className="bg-white text-slate-900">
-      <PageHeader />
-      <HeroSection />
+      <PageHeader onTrackCta={trackCtaClick} />
+      <HeroSection onTrackCta={trackCtaClick} />
       <ProblemSection />
-      <MiniAppIntroSection />
+      <MiniAppIntroOverview />
+      <MiniAppHighlights />
       <ComparisonSection />
       {/* <SolutionSection /> */}
       <ReviewSection />
-      <FooterAnchor />
+      <FooterAnchor onTrackCta={trackCtaClick} />
       <Footer />
     </main>
   );
 }
 
-function PageHeader() {
+function PageHeader({
+  onTrackCta,
+}: {
+  onTrackCta: (ctaType: string, sectionName?: string) => void;
+}) {
   return (
     <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-md">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -196,6 +238,8 @@ function PageHeader() {
           compact
           align="end"
           hideSecondaryOnMobile
+          sectionName="header"
+          onTrackCta={onTrackCta}
           className="items-center overflow-x-auto pb-1"
         />
       </div>
@@ -203,9 +247,13 @@ function PageHeader() {
   );
 }
 
-function HeroSection() {
+function HeroSection({
+  onTrackCta,
+}: {
+  onTrackCta: (ctaType: string, sectionName?: string) => void;
+}) {
   return (
-    <Section className="pt-20 sm:pt-24 lg:pt-28">
+    <Section className="pt-20 sm:pt-24 lg:pt-28" sectionName="hero">
       <motion.div
         initial="hidden"
         animate="visible"
@@ -225,7 +273,7 @@ function HeroSection() {
             이미 운영중인 서비스, 새로 런칭하는 신규 서비스, 모두 토스
             미니앱에서 선보일 수 있습니다.
           </p>
-          <CTAButtons />
+          <CTAButtons sectionName="hero" onTrackCta={onTrackCta} />
         </div>
         <div className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 shadow-sm">
           <div className="relative aspect-[4/3] w-full">
@@ -257,7 +305,10 @@ function ProblemSection() {
   const rotations = [-6, 4, -3, 6, -4, 5];
 
   return (
-    <Section className="relative overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white">
+    <Section
+      className="relative overflow-hidden bg-gradient-to-b from-blue-50 via-white to-white"
+      sectionName="problem"
+    >
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -301,31 +352,32 @@ function ProblemSection() {
   );
 }
 
-function MiniAppIntroSection() {
-  const highlights = [
-    {
-      icon: "/toss-miniapp/money.png",
-      title: "비용 · 시간 절감",
-      desc: "하이브리드 앱 대비 개발 비용 60% 절감, 1~2개월 내 출시",
-    },
-    {
-      icon: "/toss-miniapp/target.png",
-      title: "정밀 타겟 마케팅",
-      desc: "3,000만 토스 유저의 세그먼트 기반 효율적 고객 도달",
-    },
-    {
-      icon: "/toss-miniapp/lock.png",
-      title: "신뢰성 높은 인증 · 결제",
-      desc: "토스의 검증된 인증/결제 서비스로 높은 편리성과 사용성 제공",
-    },
-  ];
+const miniAppHighlights = [
+  {
+    icon: "/toss-miniapp/money.png",
+    title: "비용 · 시간 절감",
+    desc: "하이브리드 앱 대비 개발 비용 60% 절감, 1~2개월 내 출시",
+  },
+  {
+    icon: "/toss-miniapp/target.png",
+    title: "정밀 타겟 마케팅",
+    desc: "3,000만 토스 유저의 세그먼트 기반 효율적 고객 도달",
+  },
+  {
+    icon: "/toss-miniapp/lock.png",
+    title: "신뢰성 높은 인증 · 결제",
+    desc: "토스의 검증된 인증/결제 서비스로 높은 편리성과 사용성 제공",
+  },
+];
 
+function MiniAppIntroOverview() {
   return (
-    <Section className="relative overflow-hidden bg-white">
-      {/* 배경 데코레이션 */}
+    <Section
+      className="relative overflow-hidden bg-white"
+      sectionName="miniapp-intro-overview"
+    >
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-gradient-to-br from-blue-100/60 to-cyan-100/40 blur-3xl" />
-        <div className="absolute -right-32 bottom-0 h-[350px] w-[350px] rounded-full bg-gradient-to-tl from-blue-100/50 to-indigo-100/30 blur-3xl" />
+        <div className="absolute -left-32 top-0 h-[320px] w-[320px] rounded-full bg-gradient-to-br from-blue-100/60 to-cyan-100/40 blur-3xl" />
       </div>
 
       <motion.div
@@ -333,64 +385,73 @@ function MiniAppIntroSection() {
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={fadeUp}
-        className="relative"
+        className="relative text-center space-y-4"
       >
-        {/* 섹션 헤더 */}
-        <div className="mb-12 text-center space-y-4">
-          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
-            <span className="h-2 w-2 rounded-full bg-blue-500" />
-            <span className="text-sm font-semibold text-blue-700">
-              토스 미니앱이란?
-            </span>
-          </div>
-          <h2 className="text-[clamp(1.5rem,6vw,2.25rem)] font-bold tracking-tight text-slate-900 break-keep">
-            토스 안에서 바로 만나는
-            <br />
-            <span className="text-blue-600">새로운 서비스 런칭 방식</span>
-          </h2>
-          <p className="mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
-            별도의 앱 설치 없이 토스 홈에서 바로 진입해 고객의 첫 경험을 줄여
-            전환을 높입니다. <br />
-            파키즈 팀은 기획, 개발, 검수까지 턴키 방식으로 지원합니다.
-          </p>
+        <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
+          <span className="h-2 w-2 rounded-full bg-blue-500" />
+          <span className="text-sm font-semibold text-blue-700">
+            토스 미니앱이란?
+          </span>
         </div>
+        <h2 className="text-[clamp(1.5rem,6vw,2.25rem)] font-bold tracking-tight text-slate-900 break-keep">
+          토스 안에서 바로 만나는
+          <br />
+          <span className="text-blue-600">새로운 서비스 런칭 방식</span>
+        </h2>
+        <p className="mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
+          별도의 앱 설치 없이 토스 홈에서 바로 진입해 고객의 첫 경험을 줄여
+          전환을 높입니다. <br />
+          파키즈 팀은 기획, 개발, 검수까지 턴키 방식으로 지원합니다.
+        </p>
+      </motion.div>
+    </Section>
+  );
+}
 
-        {/* 하이라이트 카드 그리드 */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={stagger}
-          className="grid gap-6 sm:grid-cols-3"
-        >
-          {highlights.map((item, idx) => (
-            <motion.div
-              key={item.title}
-              variants={fadeSlideUp}
-              transition={{ delay: idx * 0.1 }}
-              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/50"
-            >
-              <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-blue-100/80 to-cyan-100/60 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
-              <div className="relative">
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-3 shadow-lg shadow-blue-200">
-                  <Image
-                    src={item.icon}
-                    alt={item.title}
-                    width={28}
-                    height={28}
-                    className="h-7 w-7 object-contain brightness-0 invert"
-                  />
-                </div>
-                <h3 className="mb-2 text-lg font-bold text-slate-900">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-slate-600 break-keep">
-                  {item.desc}
-                </p>
+function MiniAppHighlights() {
+  return (
+    <Section
+      className="relative overflow-hidden bg-white pt-8"
+      sectionName="miniapp-intro-highlights"
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -right-32 bottom-0 h-[350px] w-[350px] rounded-full bg-gradient-to-tl from-blue-100/50 to-indigo-100/30 blur-3xl" />
+      </div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={stagger}
+        className="relative grid gap-6 sm:grid-cols-3"
+      >
+        {miniAppHighlights.map((item, idx) => (
+          <motion.div
+            key={item.title}
+            variants={fadeSlideUp}
+            transition={{ delay: idx * 0.1 }}
+            className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/50"
+          >
+            <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-blue-100/80 to-cyan-100/60 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="relative">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-3 shadow-lg shadow-blue-200">
+                <Image
+                  src={item.icon}
+                  alt={item.title}
+                  width={28}
+                  height={28}
+                  className="h-7 w-7 object-contain brightness-0 invert"
+                />
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              <h3 className="mb-2 text-lg font-bold text-slate-900">
+                {item.title}
+              </h3>
+              <p className="text-sm leading-relaxed text-slate-600 break-keep">
+                {item.desc}
+              </p>
+            </div>
+          </motion.div>
+        ))}
       </motion.div>
     </Section>
   );
@@ -489,7 +550,10 @@ function ComparisonSection() {
   ];
 
   return (
-    <Section className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50">
+    <Section
+      className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50"
+      sectionName="comparison"
+    >
       {/* 배경 데코레이션 */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-0 top-0 h-[500px] w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-blue-100/50 to-cyan-100/30 blur-3xl" />
@@ -755,7 +819,10 @@ function ReviewSection() {
   ];
 
   return (
-    <Section className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50">
+    <Section
+      className="relative overflow-hidden bg-gradient-to-b from-white to-slate-50"
+      sectionName="review"
+    >
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -816,9 +883,16 @@ function ReviewSection() {
   );
 }
 
-function FooterAnchor() {
+function FooterAnchor({
+  onTrackCta,
+}: {
+  onTrackCta: (ctaType: string, sectionName?: string) => void;
+}) {
   return (
-    <Section className="relative overflow-hidden bg-white">
+    <Section
+      className="relative overflow-hidden bg-white"
+      sectionName="footer-cta"
+    >
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -840,7 +914,11 @@ function FooterAnchor() {
                 <br className="hidden sm:block" />
                 토스의 인프라와 유저풀을 활용해 더 빠른 성과를 경험하세요.
               </p>
-              <CTAButtons variant="dark" />
+              <CTAButtons
+                variant="dark"
+                sectionName="footer-cta"
+                onTrackCta={onTrackCta}
+              />
             </div>
             <div className="grid grid-cols-2 gap-4">
               {[
