@@ -158,7 +158,7 @@ function CTAButtons({
       </a>
       {showSecondary ? (
         <a
-          href="https://drive.google.com/file/d/1l86TuoUPG3kINOTl-WIw8sLAiE7idSQo/view?usp=drive_link"
+          href="https://drive.google.com/file/d/1250ZTN_txy5rgglq5B_DXDz3c5-GlJ_n/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => onTrackCta?.("brochure", sectionName)}
@@ -182,16 +182,13 @@ export default function TossMiniAppIntro() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.25) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
             const name = entry.target.getAttribute("data-section") ?? undefined;
             trackSectionView(name);
           }
         });
       },
-      {
-        threshold: [0.25, 0.5],
-        rootMargin: "0px 0px -20% 0px",
-      }
+      { threshold: 0.5 }
     );
 
     const sections = document.querySelectorAll("[data-section]");
@@ -205,8 +202,7 @@ export default function TossMiniAppIntro() {
       <PageHeader onTrackCta={trackCtaClick} />
       <HeroSection onTrackCta={trackCtaClick} />
       <ProblemSection />
-      <MiniAppIntroOverview />
-      <MiniAppHighlights />
+      <MiniAppIntroSection />
       <ComparisonSection />
       {/* <SolutionSection /> */}
       <ReviewSection />
@@ -352,69 +348,33 @@ function ProblemSection() {
   );
 }
 
-const miniAppHighlights = [
-  {
-    icon: "/toss-miniapp/money.png",
-    title: "비용 · 시간 절감",
-    desc: "하이브리드 앱 대비 개발 비용 60% 절감, 1~2개월 내 출시",
-  },
-  {
-    icon: "/toss-miniapp/target.png",
-    title: "정밀 타겟 마케팅",
-    desc: "3,000만 토스 유저의 세그먼트 기반 효율적 고객 도달",
-  },
-  {
-    icon: "/toss-miniapp/lock.png",
-    title: "신뢰성 높은 인증 · 결제",
-    desc: "토스의 검증된 인증/결제 서비스로 높은 편리성과 사용성 제공",
-  },
-];
+function MiniAppIntroSection() {
+  const highlights = [
+    {
+      icon: "/toss-miniapp/money.png",
+      title: "비용 · 시간 절감",
+      desc: "하이브리드 앱 대비 개발 비용 60% 절감, 1~2개월 내 출시",
+    },
+    {
+      icon: "/toss-miniapp/target.png",
+      title: "정밀 타겟 마케팅",
+      desc: "3,000만 토스 유저의 세그먼트 기반 효율적 고객 도달",
+    },
+    {
+      icon: "/toss-miniapp/lock.png",
+      title: "신뢰성 높은 인증 · 결제",
+      desc: "토스의 검증된 인증/결제 서비스로 높은 편리성과 사용성 제공",
+    },
+  ];
 
-function MiniAppIntroOverview() {
   return (
     <Section
       className="relative overflow-hidden bg-white"
-      sectionName="miniapp-intro-overview"
+      sectionName="miniapp-intro"
     >
+      {/* 배경 데코레이션 */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-32 top-0 h-[320px] w-[320px] rounded-full bg-gradient-to-br from-blue-100/60 to-cyan-100/40 blur-3xl" />
-      </div>
-
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeUp}
-        className="relative text-center space-y-4"
-      >
-        <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
-          <span className="h-2 w-2 rounded-full bg-blue-500" />
-          <span className="text-sm font-semibold text-blue-700">
-            토스 미니앱이란?
-          </span>
-        </div>
-        <h2 className="text-[clamp(1.5rem,6vw,2.25rem)] font-bold tracking-tight text-slate-900 break-keep">
-          토스 안에서 바로 만나는
-          <br />
-          <span className="text-blue-600">새로운 서비스 런칭 방식</span>
-        </h2>
-        <p className="mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
-          별도의 앱 설치 없이 토스 홈에서 바로 진입해 고객의 첫 경험을 줄여
-          전환을 높입니다. <br />
-          파키즈 팀은 기획, 개발, 검수까지 턴키 방식으로 지원합니다.
-        </p>
-      </motion.div>
-    </Section>
-  );
-}
-
-function MiniAppHighlights() {
-  return (
-    <Section
-      className="relative overflow-hidden bg-white pt-8"
-      sectionName="miniapp-intro-highlights"
-    >
-      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-32 top-0 h-[400px] w-[400px] rounded-full bg-gradient-to-br from-blue-100/60 to-cyan-100/40 blur-3xl" />
         <div className="absolute -right-32 bottom-0 h-[350px] w-[350px] rounded-full bg-gradient-to-tl from-blue-100/50 to-indigo-100/30 blur-3xl" />
       </div>
 
@@ -422,36 +382,65 @@ function MiniAppHighlights() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        variants={stagger}
-        className="relative grid gap-6 sm:grid-cols-3"
+        variants={fadeUp}
+        className="relative"
       >
-        {miniAppHighlights.map((item, idx) => (
-          <motion.div
-            key={item.title}
-            variants={fadeSlideUp}
-            transition={{ delay: idx * 0.1 }}
-            className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/50"
-          >
-            <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-blue-100/80 to-cyan-100/60 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
-            <div className="relative">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-3 shadow-lg shadow-blue-200">
-                <Image
-                  src={item.icon}
-                  alt={item.title}
-                  width={28}
-                  height={28}
-                  className="h-7 w-7 object-contain brightness-0 invert"
-                />
+        {/* 섹션 헤더 */}
+        <div className="mb-12 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
+            <span className="h-2 w-2 rounded-full bg-blue-500" />
+            <span className="text-sm font-semibold text-blue-700">
+              토스 미니앱이란?
+            </span>
+          </div>
+          <h2 className="text-[clamp(1.5rem,6vw,2.25rem)] font-bold tracking-tight text-slate-900 break-keep">
+            토스 안에서 바로 만나는
+            <br />
+            <span className="text-blue-600">새로운 서비스 런칭 방식</span>
+          </h2>
+          <p className="mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
+            별도의 앱 설치 없이 토스 홈에서 바로 진입해 고객의 첫 경험을 줄여
+            전환을 높입니다. <br />
+            파키즈 팀은 기획, 개발, 검수까지 턴키 방식으로 지원합니다.
+          </p>
+        </div>
+
+        {/* 하이라이트 카드 그리드 */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={stagger}
+          className="grid gap-6 sm:grid-cols-3"
+        >
+          {highlights.map((item, idx) => (
+            <motion.div
+              key={item.title}
+              variants={fadeSlideUp}
+              transition={{ delay: idx * 0.1 }}
+              className="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/50"
+            >
+              <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gradient-to-br from-blue-100/80 to-cyan-100/60 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="relative">
+                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-3 shadow-lg shadow-blue-200">
+                  <Image
+                    src={item.icon}
+                    alt={item.title}
+                    width={28}
+                    height={28}
+                    className="h-7 w-7 object-contain brightness-0 invert"
+                  />
+                </div>
+                <h3 className="mb-2 text-lg font-bold text-slate-900">
+                  {item.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-slate-600 break-keep">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="mb-2 text-lg font-bold text-slate-900">
-                {item.title}
-              </h3>
-              <p className="text-sm leading-relaxed text-slate-600 break-keep">
-                {item.desc}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
     </Section>
   );
