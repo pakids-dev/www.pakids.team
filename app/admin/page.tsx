@@ -18,12 +18,27 @@ type AnalyticsRow = {
   count: number;
 };
 
+type SessionStat = { channel: string; sessions: number };
+type SectionAverage = {
+  channel: string;
+  avgPerSession: number;
+  totalSections: number;
+};
+type CtaTypeAverage = {
+  channel: string;
+  items: { ctaType: string; avgPerSession: number; total: number }[];
+  sessions: number;
+};
+
 type AnalyticsResponse = {
   range: string;
   startDate: string;
   endDate: string;
   total: number;
   rows: AnalyticsRow[];
+  sessionStats: SessionStat[];
+  sectionAverages: SectionAverage[];
+  ctaTypeAverages: CtaTypeAverage[];
   error?: string;
 };
 
@@ -32,6 +47,13 @@ const rangeOptions: { label: string; value: RangeKey }[] = [
   { label: "7일", value: "7d" },
   { label: "30일", value: "30d" },
 ];
+
+function formatAvg(value: number) {
+  if (Number.isNaN(value)) return "0";
+  if (value === 0) return "0";
+  if (value % 1 === 0) return value.toString();
+  return value.toFixed(2);
+}
 
 export default function AdminPage() {
   const [isAuthed, setIsAuthed] = useState(false);
@@ -107,7 +129,10 @@ export default function AdminPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
       });
-      const json = (await res.json()) as { authenticated?: boolean; error?: string };
+      const json = (await res.json()) as {
+        authenticated?: boolean;
+        error?: string;
+      };
       if (!res.ok || !json.authenticated) {
         setAuthError(json?.error || "로그인에 실패했습니다.");
         return;
@@ -129,21 +154,27 @@ export default function AdminPage() {
           GA4 채널별 유입 통계 대시보드
         </h1>
         <p className="text-sm text-slate-600">
-          `/toss-miniapp`에 설정된 GA4 이벤트를 기반으로 채널별 페이지뷰를 확인합니다.
+          `/toss-miniapp`에 설정된 GA4 이벤트를 기반으로 채널별 페이지뷰를
+          확인합니다.
         </p>
       </div>
 
       {!isAuthed ? (
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <div className="mb-4">
-            <h2 className="text-lg font-semibold text-slate-900">접근 비밀번호</h2>
+            <h2 className="text-lg font-semibold text-slate-900">
+              접근 비밀번호
+            </h2>
             <p className="text-sm text-slate-600">
               관리자 비밀번호를 입력해 주세요.
             </p>
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-sm font-medium text-slate-700" htmlFor="password">
+              <label
+                className="text-sm font-medium text-slate-700"
+                htmlFor="password"
+              >
                 비밀번호
               </label>
               <input
@@ -175,7 +206,9 @@ export default function AdminPage() {
               <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
                 Channel Overview
               </p>
-              <p className="text-lg font-bold text-slate-900">채널별 페이지뷰</p>
+              <p className="text-lg font-bold text-slate-900">
+                채널별 페이지뷰
+              </p>
               <p className="text-sm text-slate-600">
                 {data?.startDate} ~ {data?.endDate}
               </p>
@@ -206,68 +239,219 @@ export default function AdminPage() {
               {error}
             </div>
           ) : (
-            <div className="grid gap-6 lg:grid-cols-[1.3fr,1fr]">
-              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <p className="text-sm font-semibold text-slate-800">채널별 막대 차트</p>
-                  <span className="text-xs text-slate-500">
-                    총 {data?.total ?? 0} 뷰
-                  </span>
+            <>
+              <div className="grid gap-6 lg:grid-cols-[1.3fr,1fr]">
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm font-semibold text-slate-800">
+                      채널별 막대 차트
+                    </p>
+                    <span className="text-xs text-slate-500">
+                      총 {data?.total ?? 0} 뷰
+                    </span>
+                  </div>
+                  <div className="mt-4 h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData} margin={{ left: -10 }}>
+                        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                        <XAxis dataKey="channel" tick={{ fontSize: 12 }} />
+                        <YAxis tick={{ fontSize: 12 }} />
+                        <Tooltip
+                          formatter={(value: number) => [
+                            `${value} 뷰`,
+                            "뷰 수",
+                          ]}
+                          labelFormatter={(label) => `채널: ${label}`}
+                        />
+                        <Bar
+                          dataKey="count"
+                          fill="#2563eb"
+                          radius={[6, 6, 0, 0]}
+                        />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
                 </div>
-                <div className="mt-4 h-80">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={chartData} margin={{ left: -10 }}>
-                      <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                      <XAxis dataKey="channel" tick={{ fontSize: 12 }} />
-                      <YAxis tick={{ fontSize: 12 }} />
-                      <Tooltip
-                        formatter={(value: number) => [`${value} 뷰`, "뷰 수"]}
-                        labelFormatter={(label) => `채널: ${label}`}
-                      />
-                      <Bar dataKey="count" fill="#2563eb" radius={[6, 6, 0, 0]} />
-                    </BarChart>
-                  </ResponsiveContainer>
+
+                <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-baseline justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                        Total Views
+                      </p>
+                      <p className="text-2xl font-bold text-slate-900">
+                        {data?.total ?? 0}
+                      </p>
+                    </div>
+                    <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+                      {rangeOptions.find((r) => r.value === range)?.label}
+                    </span>
+                  </div>
+                  <div className="divide-y divide-slate-100 border border-slate-100 rounded-xl">
+                    {(data?.rows ?? []).map((row) => (
+                      <div
+                        key={row.channel}
+                        className="flex items-center justify-between px-4 py-3 text-sm"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-blue-500" />
+                          <span className="font-medium text-slate-800">
+                            {row.channel}
+                          </span>
+                        </div>
+                        <span className="font-semibold text-slate-900">
+                          {row.count}
+                        </span>
+                      </div>
+                    ))}
+                    {(data?.rows?.length ?? 0) === 0 ? (
+                      <div className="px-4 py-3 text-sm text-slate-500">
+                        데이터가 없습니다.
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </div>
 
-              <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="flex items-baseline justify-between">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
-                      Total Views
-                    </p>
-                    <p className="text-2xl font-bold text-slate-900">{data?.total ?? 0}</p>
+              <div className="grid gap-6 lg:grid-cols-3">
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-baseline justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                        Sessions
+                      </p>
+                      <p className="text-lg font-bold text-slate-900">
+                        채널별 고유 세션 수(고유 사용자)
+                      </p>
+                    </div>
                   </div>
-                  <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
-                    {rangeOptions.find((r) => r.value === range)?.label}
-                  </span>
-                </div>
-                <div className="divide-y divide-slate-100 border border-slate-100 rounded-xl">
-                  {(data?.rows ?? []).map((row) => (
-                    <div
-                      key={row.channel}
-                      className="flex items-center justify-between px-4 py-3 text-sm"
-                    >
-                      <div className="flex items-center gap-2">
-                        <span className="h-2 w-2 rounded-full bg-blue-500" />
-                        <span className="font-medium text-slate-800">{row.channel}</span>
+                  <div className="mt-3 divide-y divide-slate-100 border border-slate-100 rounded-xl">
+                    {(data?.sessionStats ?? []).map((row) => (
+                      <div
+                        key={row.channel}
+                        className="flex items-center justify-between px-4 py-3 text-sm"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                          <span className="font-medium text-slate-800">
+                            {row.channel}
+                          </span>
+                        </div>
+                        <span className="font-semibold text-slate-900">
+                          {row.sessions.toLocaleString()}
+                        </span>
                       </div>
-                      <span className="font-semibold text-slate-900">{row.count}</span>
+                    ))}
+                    {(data?.sessionStats?.length ?? 0) === 0 ? (
+                      <div className="px-4 py-3 text-sm text-slate-500">
+                        데이터가 없습니다.
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-baseline justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                        Section Views
+                      </p>
+                      <p className="text-lg font-bold text-slate-900">
+                        세션당 평균 섹션 뷰
+                      </p>
                     </div>
-                  ))}
-                  {(data?.rows?.length ?? 0) === 0 ? (
-                    <div className="px-4 py-3 text-sm text-slate-500">
-                      데이터가 없습니다.
+                  </div>
+                  <div className="mt-3 divide-y divide-slate-100 border border-slate-100 rounded-xl">
+                    {(data?.sectionAverages ?? []).map((row) => (
+                      <div
+                        key={row.channel}
+                        className="flex items-center justify-between px-4 py-3 text-sm"
+                      >
+                        <div className="flex flex-col">
+                          <span className="font-medium text-slate-800">
+                            {row.channel}
+                          </span>
+                          <span className="text-xs text-slate-500">
+                            총 {row.totalSections.toLocaleString()} 섹션 뷰
+                          </span>
+                        </div>
+                        <span className="font-semibold text-slate-900">
+                          {formatAvg(row.avgPerSession)}
+                        </span>
+                      </div>
+                    ))}
+                    {(data?.sectionAverages?.length ?? 0) === 0 ? (
+                      <div className="px-4 py-3 text-sm text-slate-500">
+                        데이터가 없습니다.
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="flex items-baseline justify-between">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-blue-600">
+                        CTA Clicks
+                      </p>
+                      <p className="text-lg font-bold text-slate-900">
+                        CTA 타입별 세션당 평균
+                      </p>
                     </div>
-                  ) : null}
+                  </div>
+                  <div className="mt-3 space-y-3">
+                    {(data?.ctaTypeAverages ?? []).map((row) => (
+                      <div
+                        key={row.channel}
+                        className="rounded-xl border border-slate-100"
+                      >
+                        <div className="flex items-center justify-between px-4 py-3">
+                          <span className="font-medium text-slate-800">
+                            {row.channel}
+                          </span>
+                          <span className="text-xs text-slate-500">
+                            세션 {row.sessions.toLocaleString()}
+                          </span>
+                        </div>
+                        <div className="divide-y divide-slate-100">
+                          {(row.items ?? []).map((item) => (
+                            <div
+                              key={`${row.channel}-${item.ctaType}`}
+                              className="flex items-center justify-between px-4 py-3 text-sm"
+                            >
+                              <div className="flex flex-col">
+                                <span className="font-medium text-slate-800">
+                                  {item.ctaType}
+                                </span>
+                                <span className="text-xs text-slate-500">
+                                  총 {item.total.toLocaleString()} 클릭
+                                </span>
+                              </div>
+                              <span className="font-semibold text-slate-900">
+                                {formatAvg(item.avgPerSession)}
+                              </span>
+                            </div>
+                          ))}
+                          {(row.items?.length ?? 0) === 0 ? (
+                            <div className="px-4 py-3 text-sm text-slate-500">
+                              데이터가 없습니다.
+                            </div>
+                          ) : null}
+                        </div>
+                      </div>
+                    ))}
+                    {(data?.ctaTypeAverages?.length ?? 0) === 0 ? (
+                      <div className="rounded-xl border border-slate-100 px-4 py-3 text-sm text-slate-500">
+                        데이터가 없습니다.
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </div>
-            </div>
+            </>
           )}
         </div>
       )}
     </main>
   );
 }
-
-
