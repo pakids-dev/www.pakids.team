@@ -203,8 +203,10 @@ export default function TossMiniAppIntro() {
       <HeroSection onTrackCta={trackCtaClick} />
       <ProblemSection />
       <MiniAppIntroSection />
+      <PhoneMockupSection />
+      <CaseStudySection />
       <ComparisonSection />
-      {/* <SolutionSection /> */}
+      <BetaBenefitSection onTrackCta={trackCtaClick} />
       <ReviewSection />
       <FooterAnchor onTrackCta={trackCtaClick} />
       <Footer />
@@ -440,6 +442,382 @@ function MiniAppIntroSection() {
               </div>
             </motion.div>
           ))}
+        </motion.div>
+      </motion.div>
+    </Section>
+  );
+}
+
+function PhoneMockupSection() {
+  const steps = [
+    {
+      number: "01",
+      title: "세그먼트 선정",
+      desc: "타겟 고객 세분화",
+    },
+    {
+      number: "02",
+      title: "배너 / 푸시",
+      desc: "토스 홈 최상단 노출",
+    },
+    {
+      number: "03",
+      title: "데이터 확인",
+      desc: "대시보드 분석",
+    },
+  ];
+
+  return (
+    <Section
+      className="relative overflow-hidden bg-gradient-to-b from-white via-blue-50/30 to-white"
+      sectionName="phone-mockup"
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -right-40 top-20 h-[500px] w-[500px] rounded-full bg-gradient-to-br from-blue-100/40 to-cyan-100/20 blur-3xl" />
+      </div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
+        className="relative"
+      >
+        <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:gap-16">
+          {/* 좌측 텍스트 영역 */}
+          <div className="flex-1 space-y-8 lg:max-w-[55%]">
+            {/* 아이브로우 뱃지 */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-4 py-1.5">
+              <span className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
+              <span className="text-sm font-semibold text-blue-700">
+                3,000만 유저 도달
+              </span>
+            </div>
+
+            {/* 메인 헤드라인 */}
+            <h2 className="text-[clamp(1.75rem,6vw,2.75rem)] font-bold leading-tight tracking-tight text-slate-900 break-keep">
+              3천만 토스 유저를
+              <br />
+              <span className="text-blue-600">정말</span> 만날 수 있어요
+            </h2>
+
+            {/* 서브 텍스트 */}
+            <p className="max-w-md text-[clamp(0.9rem,4vw,1.125rem)] leading-relaxed text-slate-600 break-keep">
+              직접 세그먼트를 지정하고,
+              <br />
+              앱/푸시 배너 노출을 세팅하며,
+              <br />
+              그에 따른 결과까지 확인하세요.
+            </p>
+
+            {/* 3단계 플로우 카드 */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={stagger}
+              className="flex flex-col gap-4 sm:flex-row sm:items-stretch"
+            >
+              {steps.map((step, idx) => (
+                <motion.div
+                  key={step.number}
+                  variants={fadeUp}
+                  transition={{ delay: idx * 0.1 }}
+                  className="group relative flex-1"
+                >
+                  <div className="flex h-full flex-col rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-100/50">
+                    <span className="mb-2 text-2xl font-bold text-blue-600">
+                      {step.number}
+                    </span>
+                    <h4 className="mb-1 text-base font-bold text-slate-900">
+                      {step.title}
+                    </h4>
+                    <p className="text-sm text-slate-500">{step.desc}</p>
+                  </div>
+                  {/* 화살표 (마지막 제외) */}
+                  {idx < steps.length - 1 && (
+                    <div className="absolute -right-2 top-1/2 z-10 hidden -translate-y-1/2 text-slate-300 sm:block">
+                      <svg
+                        className="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* 우측 폰 목업 이미지 */}
+          <div className="relative flex-1 lg:max-w-[45%]">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="relative mx-auto max-w-sm"
+            >
+              {/* 폰 목업 이미지 - 이미지에 프레임 포함 */}
+              <div className="relative aspect-[9/19] w-full">
+                <Image
+                  src="/toss-miniapp/phone-mockup.png"
+                  alt="토스 미니앱 대시보드 화면"
+                  fill
+                  sizes="(min-width: 1024px) 360px, 280px"
+                  className="object-contain drop-shadow-2xl"
+                />
+              </div>
+              {/* 데코레이션 */}
+              <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gradient-to-br from-blue-400/30 to-cyan-400/20 blur-2xl" />
+              <div className="pointer-events-none absolute -bottom-8 -left-8 h-28 w-28 rounded-full bg-gradient-to-tr from-indigo-400/30 to-blue-400/20 blur-2xl" />
+            </motion.div>
+          </div>
+        </div>
+      </motion.div>
+    </Section>
+  );
+}
+
+function CaseStudySection() {
+  // 오늘의 명언 성과 데이터 - TODO: 실제 수치로 교체
+  const quoteAppStats = [
+    {
+      value: "3,000+",
+      label: "사용자 수집",
+      sublabel: "비용 0원으로, 타겟 고객 마케팅",
+    },
+    {
+      value: "200+%",
+      label: "광고수익 증가",
+      sublabel: "비용은 zero, 수익은 증가",
+    },
+    { value: "17일", label: "출시 소요", sublabel: "빠른 MVP 테스트" },
+  ];
+
+  const cosimStats = [
+    { value: "100%+", label: "매출 증가", sublabel: "기존 대비 2배 이상" },
+    { value: "15%+", label: "매월 MAU", sublabel: "지속적인 성장" },
+    { value: "10,000+", label: "사용자 수", sublabel: "신규 주문 3,000+건" },
+  ];
+
+  return (
+    <Section
+      className="relative overflow-hidden bg-gradient-to-b from-slate-50 via-white to-slate-50"
+      sectionName="case-study"
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-0 top-1/4 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-gradient-to-br from-emerald-100/40 to-cyan-100/30 blur-3xl" />
+        <div className="absolute right-0 bottom-1/4 h-[350px] w-[350px] translate-x-1/2 rounded-full bg-gradient-to-tl from-blue-100/40 to-indigo-100/20 blur-3xl" />
+      </div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
+        className="relative"
+      >
+        {/* 섹션 헤더 */}
+        <div className="mb-16 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-4 py-1.5">
+            <span className="h-2 w-2 rounded-full bg-emerald-500" />
+            <span className="text-sm font-semibold text-emerald-700">
+              성공 사례
+            </span>
+          </div>
+          <h2 className="text-[clamp(1.5rem,6vw,2.5rem)] font-bold tracking-tight text-slate-900 break-keep">
+            실제 성과로 증명합니다
+          </h2>
+          <p className="mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
+            토스 미니앱으로 성장한 파트너사의 실제 성과를 확인하세요
+          </p>
+        </div>
+
+        {/* 오늘의 명언 케이스 */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeSlideUp}
+          className="mb-12"
+        >
+          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
+            <div className="mb-8 text-center">
+              <span className="mb-2 inline-block rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-700">
+                CASE 01
+              </span>
+              <h3 className="mb-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+                오늘의 명언
+              </h3>
+              <p className="text-slate-600">
+                매일 새로운 명언으로 하루를 시작하는 라이프스타일 앱
+              </p>
+            </div>
+
+            {/* 3개 폰 목업 - 중앙 정렬, 가운데 강조 (이미지에 프레임 포함) */}
+            <div className="flex items-end justify-center gap-4 sm:gap-6 lg:gap-8">
+              {/* 왼쪽 폰 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+                className="relative w-[100px] sm:w-[140px] lg:w-[180px]"
+              >
+                <div className="relative aspect-[9/19] w-full">
+                  <Image
+                    src="/toss-miniapp/quote-app-1.png"
+                    alt="오늘의 명언 앱 화면 1"
+                    fill
+                    sizes="180px"
+                    className="object-contain drop-shadow-xl"
+                  />
+                </div>
+              </motion.div>
+
+              {/* 가운데 폰 (강조) */}
+              <motion.div
+                initial={{ opacity: 0, y: 40, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.7 }}
+                className="relative z-10 w-[120px] sm:w-[170px] lg:w-[220px]"
+              >
+                <div className="relative aspect-[9/19] w-full">
+                  <Image
+                    src="/toss-miniapp/quote-app-2.png"
+                    alt="오늘의 명언 앱 화면 2"
+                    fill
+                    sizes="220px"
+                    className="object-contain drop-shadow-2xl"
+                  />
+                </div>
+                {/* 가운데 폰 데코레이션 */}
+                <div className="pointer-events-none absolute -bottom-4 -left-4 -right-4 h-8 rounded-full bg-gradient-to-t from-blue-200/50 to-transparent blur-xl" />
+              </motion.div>
+
+              {/* 오른쪽 폰 */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="relative w-[100px] sm:w-[140px] lg:w-[180px]"
+              >
+                <div className="relative aspect-[9/19] w-full">
+                  <Image
+                    src="/toss-miniapp/quote-app-3.png"
+                    alt="오늘의 명언 앱 화면 3"
+                    fill
+                    sizes="180px"
+                    className="object-contain drop-shadow-xl"
+                  />
+                </div>
+              </motion.div>
+            </div>
+
+            {/* 성과 데이터 카드 */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={stagger}
+              className="mt-10 grid gap-4 sm:grid-cols-3"
+            >
+              {quoteAppStats.map((stat, idx) => (
+                <motion.div
+                  key={stat.label}
+                  variants={fadeUp}
+                  transition={{ delay: idx * 0.1 }}
+                  className="group relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-100/50"
+                >
+                  <div className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-gradient-to-br from-amber-400/20 to-orange-400/10 blur-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <p className="mb-1 text-[clamp(2rem,8vw,3rem)] font-bold text-amber-600">
+                    {stat.value}
+                  </p>
+                  <p className="mb-1 text-base font-semibold text-slate-900">
+                    {stat.label}
+                  </p>
+                  <p className="text-sm text-slate-500">{stat.sublabel}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </motion.div>
+
+        {/* 코심인터내셔널 케이스 */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeSlideUp}
+        >
+          <div className="overflow-hidden rounded-3xl border border-blue-200 bg-gradient-to-br from-blue-50 via-white to-cyan-50 p-6 shadow-sm sm:p-10">
+            <div className="mb-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <span className="mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                  CASE 02
+                </span>
+                <h3 className="mb-1 text-2xl font-bold text-slate-900 sm:text-3xl">
+                  코심: eSIM 구매 서비스
+                </h3>
+                <p className="text-slate-600">
+                  글로벌 통신사 eSIM 통신망 서비스 연동
+                </p>
+              </div>
+              {/* 코심 로고 */}
+              <div className="shrink-0">
+                <Image
+                  src="/toss-miniapp/kosim-logo.png"
+                  alt="코심 로고"
+                  width={120}
+                  height={40}
+                  className="h-10 w-auto object-contain sm:h-12"
+                />
+              </div>
+            </div>
+
+            <blockquote className="mb-8 border-l-4 border-blue-300 pl-4 text-lg italic text-slate-700">
+              "빠른 개발 속도와 신뢰성 있는 서비스 제공으로 많은 사용자들에게
+              사랑받고 있습니다"
+            </blockquote>
+
+            {/* 성과 데이터 카드 */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={stagger}
+              className="grid gap-4 sm:grid-cols-3"
+            >
+              {cosimStats.map((stat, idx) => (
+                <motion.div
+                  key={stat.label}
+                  variants={fadeUp}
+                  transition={{ delay: idx * 0.1 }}
+                  className="group relative overflow-hidden rounded-2xl border border-blue-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-100/50"
+                >
+                  <div className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-gradient-to-br from-blue-400/20 to-cyan-400/10 blur-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <p className="mb-1 text-[clamp(2rem,8vw,3rem)] font-bold text-blue-600">
+                    {stat.value}
+                  </p>
+                  <p className="mb-1 text-base font-semibold text-slate-900">
+                    {stat.label}
+                  </p>
+                  <p className="text-sm text-slate-500">{stat.sublabel}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </motion.div>
       </motion.div>
     </Section>
@@ -776,6 +1154,193 @@ function SolutionSection() {
         </div>
       </div>
     </section>
+  );
+}
+
+function BetaBenefitSection({
+  onTrackCta,
+}: {
+  onTrackCta: (ctaType: string, sectionName?: string) => void;
+}) {
+  const benefits = [
+    {
+      value: "0%",
+      label: "인앱결제 수수료",
+      sublabel: "2026.02까지 무료",
+      icon: (
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+          />
+        </svg>
+      ),
+    },
+    {
+      value: "0%",
+      label: "광고 수수료",
+      sublabel: "인앱광고 · 토스홈 광고",
+      icon: (
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"
+          />
+        </svg>
+      ),
+    },
+    {
+      value: "무료",
+      label: "푸시 · 토스페이",
+      sublabel: "일 10만건 푸시 무료",
+      icon: (
+        <svg
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+          />
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <Section
+      className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/30 to-white"
+      sectionName="beta-benefit"
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/4 top-0 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-gradient-to-br from-emerald-100/50 to-teal-100/30 blur-3xl" />
+        <div className="absolute right-0 bottom-0 h-[300px] w-[300px] translate-x-1/3 rounded-full bg-gradient-to-tl from-emerald-100/40 to-cyan-100/20 blur-3xl" />
+      </div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
+        className="relative"
+      >
+        {/* 섹션 헤더 */}
+        <div className="mb-12 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-300 bg-gradient-to-r from-emerald-50 to-teal-50 px-4 py-1.5">
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-sm font-semibold text-emerald-700">
+              프로모션 기간 연장! ~2026.02.28
+            </span>
+          </div>
+          <h2 className="text-[clamp(1.5rem,6vw,2.5rem)] font-bold tracking-tight text-slate-900 break-keep">
+            수수료 <span className="text-emerald-600">전액 무료</span>,
+            <br className="sm:hidden" /> 지금이 기회입니다
+          </h2>
+          <p className="mx-auto max-w-2xl text-[clamp(0.875rem,4vw,1.125rem)] text-slate-600 break-keep">
+            인앱결제, 인앱광고, 토스 홈 광고, 푸시/알림, 토스페이
+            <br className="hidden sm:block" />
+            <strong className="text-slate-800">2026년 2월 28일까지</strong> 모든
+            수수료가 무료입니다
+          </p>
+        </div>
+
+        {/* 혜택 카드 */}
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={stagger}
+          className="mb-10 grid gap-6 sm:grid-cols-3"
+        >
+          {benefits.map((benefit, idx) => (
+            <motion.div
+              key={benefit.label}
+              variants={fadeSlideUp}
+              transition={{ delay: idx * 0.1 }}
+              className="group relative overflow-hidden rounded-2xl border border-emerald-200 bg-white p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-emerald-100/50"
+            >
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-transparent to-teal-50/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="relative">
+                <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 text-white shadow-lg shadow-emerald-200">
+                  {benefit.icon}
+                </div>
+                <p className="mb-1 text-[clamp(2rem,8vw,3rem)] font-bold text-emerald-600">
+                  {benefit.value}
+                </p>
+                <p className="mb-1 text-lg font-semibold text-slate-900">
+                  {benefit.label}
+                </p>
+                <p className="text-sm text-slate-500">{benefit.sublabel}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* CTA 배너 */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+        >
+          <div className="overflow-hidden rounded-2xl border border-emerald-300 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 p-6 text-white shadow-xl shadow-emerald-200/40 sm:p-8">
+            <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold sm:text-2xl">
+                  2026년 2월까지 모든 수수료 무료!
+                </h3>
+                <p className="text-emerald-100">
+                  인앱결제, 광고, 푸시, 토스페이 수수료 0원으로 시작하세요
+                </p>
+              </div>
+              <div className="flex shrink-0 gap-3">
+                <a
+                  href="https://pakids-toss-miniapp.channel.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => onTrackCta?.("consult", "beta-benefit")}
+                  className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-600 shadow-lg transition hover:bg-emerald-50"
+                >
+                  상담하기
+                </a>
+                <a
+                  href="https://drive.google.com/file/d/1250ZTN_txy5rgglq5B_DXDz3c5-GlJ_n/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => onTrackCta?.("brochure", "beta-benefit")}
+                  className="inline-flex items-center justify-center rounded-full border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10"
+                >
+                  소개서 받기
+                </a>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </Section>
   );
 }
 
