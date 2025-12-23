@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
@@ -46,6 +46,47 @@ const stagger = {
     },
   },
 };
+
+function PromotionBanner({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="sticky top-0 z-30 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white shadow-md">
+      <div className="relative mx-auto flex items-center justify-center gap-2 px-4 py-2.5 text-sm sm:gap-3">
+        <span className="animate-pulse">🎉</span>
+        <span className="font-semibold text-xs sm:text-sm">
+          2026.02까지 수수료 전액 무료!
+        </span>
+        <span className="hidden md:inline text-emerald-100 text-xs">
+          인앱결제 · 광고 · 푸시 · 토스페이
+        </span>
+        <a
+          href="#beta-benefit"
+          className="ml-1 sm:ml-2 rounded-full bg-white/20 px-2.5 py-1 text-xs font-medium transition hover:bg-white/30"
+        >
+          자세히
+        </a>
+        <button
+          onClick={onClose}
+          className="absolute right-2 sm:right-4 p-1.5 hover:bg-white/20 rounded-full transition"
+          aria-label="프로모션 배너 닫기"
+        >
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
 
 function Section({
   children,
@@ -175,6 +216,20 @@ function CTAButtons({
 
 export default function TossMiniAppIntro() {
   const { trackSectionView, trackCtaClick } = useAnalytics("/toss-miniapp");
+  const [isBannerVisible, setIsBannerVisible] = useState(true);
+
+  useEffect(() => {
+    // 세션 스토리지에서 배너 상태 확인
+    const bannerClosed = sessionStorage.getItem("promo-banner-closed");
+    if (bannerClosed === "true") {
+      setIsBannerVisible(false);
+    }
+  }, []);
+
+  const handleCloseBanner = () => {
+    setIsBannerVisible(false);
+    sessionStorage.setItem("promo-banner-closed", "true");
+  };
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -199,7 +254,11 @@ export default function TossMiniAppIntro() {
 
   return (
     <main className="bg-white text-slate-900">
-      <PageHeader onTrackCta={trackCtaClick} />
+      {isBannerVisible && <PromotionBanner onClose={handleCloseBanner} />}
+      <PageHeader
+        onTrackCta={trackCtaClick}
+        isBannerVisible={isBannerVisible}
+      />
       <HeroSection onTrackCta={trackCtaClick} />
       <ProblemSection />
       <MiniAppIntroSection />
@@ -216,11 +275,17 @@ export default function TossMiniAppIntro() {
 
 function PageHeader({
   onTrackCta,
+  isBannerVisible = false,
 }: {
   onTrackCta: (ctaType: string, sectionName?: string) => void;
+  isBannerVisible?: boolean;
 }) {
   return (
-    <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-md">
+    <header
+      className={`sticky z-20 bg-white/80 backdrop-blur-md transition-all duration-300 ${
+        isBannerVisible ? "top-[42px]" : "top-0"
+      }`}
+    >
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3">
           <Image
@@ -1232,6 +1297,7 @@ function BetaBenefitSection({
 
   return (
     <Section
+      id="beta-benefit"
       className="relative overflow-hidden bg-gradient-to-b from-white via-emerald-50/30 to-white"
       sectionName="beta-benefit"
     >
